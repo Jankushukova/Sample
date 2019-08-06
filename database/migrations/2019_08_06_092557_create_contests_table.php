@@ -19,6 +19,11 @@ class CreateContestsTable extends Migration
             $table->text("content");
             $table->softDeletes();
             $table->timestamps();
+
+            $table->bigInteger('course_id')->unsigned();
+            $table->foreign('course_id')
+                ->references('id')
+                ->on('courses');
         });
     }
 

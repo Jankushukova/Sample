@@ -19,6 +19,16 @@ class CreateAccessesTable extends Migration
             $table->string("unique_num");
             $table->softDeletes();
             $table->timestamps();
+
+            $table->bigInteger('course_id')->unsigned();
+            $table->foreign('course_id')
+                ->references('id')
+                ->on('courses');
+
+            $table->bigInteger('user_id')->unsigned();
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users');
         });
     }
 

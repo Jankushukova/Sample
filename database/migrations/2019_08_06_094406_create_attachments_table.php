@@ -18,6 +18,11 @@ class CreateAttachmentsTable extends Migration
             $table->string("title",255);
             $table->text("content");
             $table->timestamps();
+
+            $table->bigInteger('material_id')->unsigned();
+            $table->foreign('material_id')
+                ->references('id')
+                ->on('materials');
         });
     }
 

@@ -20,6 +20,11 @@ class CreateLessonsTable extends Migration
             $table->integer("lesson_order");
             $table->softDeletes();
             $table->timestamps();
+
+            $table->bigInteger('course_id')->unsigned();
+            $table->foreign('course_id')
+                ->references('id')
+                ->on('courses');
         });
     }
 

@@ -18,7 +18,6 @@ class CreateCoursesTable extends Migration
             $table->string('title',255);
             $table->string("description");
             $table->boolean("ready");
-            $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
         });
