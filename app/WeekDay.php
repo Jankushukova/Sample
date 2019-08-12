@@ -4,10 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Schedules extends Model
+class WeekDay extends Model
 {
     protected $fillable = [
-        'name',
-        'group_id'
+        'value'
     ];
 }

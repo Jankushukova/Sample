@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class WeekDays extends Model
+class Time extends Model
 {
     protected $fillable = [
         'value'

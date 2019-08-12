@@ -4,9 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Times extends Model
+class Schedule extends Model
 {
     protected $fillable = [
-        'value'
+        'name',
+        'group_id'
     ];
 }

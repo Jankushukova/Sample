@@ -17,12 +17,9 @@ class CreateGroupsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name', 255);
 
-            $table->bigInteger('teacher_id')->unsigned();
-            $table->foreign('teacher_id')
-                ->references('id')
-                ->on('users');
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
