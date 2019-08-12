@@ -15,6 +15,7 @@
     <!-- plugin css for this page -->
     <link rel="stylesheet" href="{{asset('front/vendors/datatables.net-bs4/dataTables.bootstrap4.css')}}">
     <!-- End plugin css for this page -->
+    @yield('styles')
     <!-- inject:css -->
     <link rel="stylesheet" href="{{asset('front/css/style.css')}}">
     <!-- endinject -->
@@ -41,6 +42,7 @@
 <script src="{{asset('front/js/jquery.dataTables.js')}}"></script>
 <script src="{{asset('front/js/dataTables.bootstrap4.js')}}"></script>
 <!-- End custom js for this page-->
+@yield('scripts')
 </body>
 
 </html>

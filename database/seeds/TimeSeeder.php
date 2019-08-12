@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Time;
+
 class TimeSeeder extends Seeder
 {
     /**
