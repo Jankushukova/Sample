@@ -25,6 +25,11 @@ class CreateMaterialsTable extends Migration
             $table->foreign('lesson_id')
                 ->references('id')
                 ->on('lessons');
+
+            $table->bigInteger('material_type_id')->unsigned();
+            $table->foreign('material_type_id')
+                ->references('id')
+                ->on('material_types');
         });
     }
 

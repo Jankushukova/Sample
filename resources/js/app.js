@@ -8,25 +8,117 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
+import VueRouter from 'vue-router';
 
-// const files = require.context('./', true, /\.vue$/i);
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+window.Vue.use(VueRouter);
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+//main
+import AccessesWrapper from "./components/accesses/AccessesWrapper";
+import GroupsWrapper from "./components/groups/GroupsWrapper";
+import CoursesWrapper from "./components/courses/CoursesWrapper";
+import UsersWrapper from "./components/users/UsersWrapper";
+import ExampleComponent from "./components/ExampleComponent";
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+//courses
+import CoursesIndex from "./components/courses/CourseIndex";
+import CoursesCreate from "./components/courses/CoursesCreate";
+import CoursesEdit from "./components/courses/CoursesEdit";
 
-const app = new Vue({
-    el: '#app',
-});
+import LessonsIndex from "./components/courses/lessons/LessonsIndex";
+import LessonsEdit from "./components/courses/lessons/LessonEdit";
+import LessonsCreate from "./components/courses/lessons/LessonCreate";
+
+import MaterialIndex from "./components/courses/materials/MaterialIndex";
+import MaterialCreate from "./components/courses/materials/MaterialCreate";
+import MaterialEdit from "./components/courses/materials/MaterialEdit";
+
+
+
+
+const router = new VueRouter({
+    routes: [
+
+        {
+            path: '/admin/courses',
+            component: CoursesWrapper,
+            children: [
+                {
+                    path: '/',
+                    component: CoursesIndex,
+                    name: 'indexCourse'
+                },
+                {
+                    path: '/create',
+                    component: CoursesCreate,
+                    name: 'createCourse'
+                },
+                {
+                    path: '/edit',
+                    component: CoursesEdit,
+                    name: 'editCourse'
+                },
+                {
+                    path: '/lesson:id',
+                    component: LessonsIndex,
+                    name: 'indexLesson'
+                },
+                {
+                    path: '/lesson/create:id',
+                    component: LessonsCreate,
+                    name: 'createLesson'
+                },{
+                    path: '/lesson/edit:id',
+                    component: LessonsEdit,
+                    name: 'editLesson'
+                },
+                {
+                    path: '/lesson/material:id',
+                    component: MaterialIndex,
+                    name: 'indexMaterial'
+                },
+                {
+                    path: '/lesson/material/create:id',
+                    component: MaterialCreate,
+                    name: 'createMaterial'
+                },
+                {
+                    path: '/lesson/material/edit:id',
+                    component: MaterialEdit,
+                    name: 'editMaterial'
+                },
+            ],
+        },
+        {
+            path: '/admin/groups',
+            component: GroupsWrapper,
+            name: 'wrapperGroup',
+            children: [
+            ],
+        },
+        {
+            path: '/admin/users',
+            component: UsersWrapper,
+            name: 'wrapperUser',
+            children: [
+            ],
+        },
+        {
+            path: '/admin/accesses',
+            component: AccessesWrapper,
+            name: 'wrapperAccess',
+            children: [
+            ],
+        },
+        {path: '/',component: ExampleComponent, name:"index",
+            children: [
+            ]
+        },
+    ]
+})
+
+const main = new Vue({ router }).$mount('#app');
+
+
+
+
+
