@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="{{asset('front/vendors/mdi/css/materialdesignicons.min.css')}}">
     <link rel="stylesheet" href="{{asset('front/vendors/base/vendor.bundle.base.css')}}">
     <!-- endinject -->
-
     <!-- plugin css for this page -->
     <link rel="stylesheet" href="{{asset('front/vendors/datatables.net-bs4/dataTables.bootstrap4.css')}}">
     <!-- End plugin css for this page -->
@@ -43,8 +42,6 @@
 <script src="{{asset('front/js/data-table.js')}}"></script>
 <script src="{{asset('front/js/jquery.dataTables.js')}}"></script>
 <script src="{{asset('front/js/dataTables.bootstrap4.js')}}"></script>
-<script src="{{asset('js/app.js')}}"></script>
-
 <!-- End custom js for this page-->
 @yield('scripts')
 </body>

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('overallContent')
-    <div class="container-scroller" id="app">
+    <div class="container-scroller">
         @include('parts.navbar')
         <div class="container-fluid page-body-wrapper">
             @include('parts.sidebar')
