@@ -1,57 +1,57 @@
 <template>
     <div class="card-body">
-                <div class="card-description row">
-                    <router-link :to="{name: 'createCourse'}" class="col" >
-                        <i class="mdi mdi-plus-circle-outline" ></i>
-                    </router-link>
 
-                    <div class="col">Courses list</div>
+        <div class="card-description row">
+            <router-link tag="button" :to="{name: 'createCourse'}" type="button"
+                         class="btn btn-outline-secondary btn-rounded btn-icon">
+                <i class="mdi mdi-plus"></i>
+            </router-link>
+
+        </div>
+        <div class="row">
+            <div class="col-md-4 grid-margin stretch-card" v-for="course, index in courses">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">{{course.title}}</h4>
+                        <p class="card-description">
+                            {{course.description}}
+                        </p>
+
+                        <p class="text-right">
+                            <router-link tag="button" :to="{name: 'indexLesson', params: {id: course.id}}" type="button"
+                                         class="btn btn-outline-secondary btn-rounded btn-icon">
+                                <i class="fab fa-readme"></i>
+                            </router-link>
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <span v-if="course.ready" class="text-success">
+                                    <i class="fa fa-thumbs-up fa-lg"></i> готов
+                                </span>
+                                <span v-else class="text-danger">
+                                    <i class="mdi mdi-alert"></i> Еще не готов
+                                </span>
+                            </div>
+                            <div class="col-lg-6">
+                                <p class="text-right">
+                                    <router-link tag="button" class="btn btn-icon" :to="{name: 'editCourse', params: {id: course.id}}">
+                                        <i class="mdi mdi-border-color"></i>
+                                    </router-link>
+
+                                    <button class="btn btn-icon">
+                                        <i class="mdi mdi-delete" v-on:click="deleteEntry(course.id, index)"></i>
+                                    </button>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            <div class="table-responsive" >
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>&nbsp;</th>
-                        <th>&nbsp;</th>
-
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="course, index in courses" >
-
-                        <td class="py-1">
-                                {{index}}
-                        </td>
-
-                        <router-link :to="{name: 'indexLesson', params: {id: course.id}}" >
-                        <td >{{ course.title }}</td>
-                        </router-link>
-
-                            <td>{{ course.description }}</td>
-
-                            <td >
-                                <router-link :to="{name: 'editCourse', params: {id: course.id}}" >
-                                    <i class="mdi mdi-border-color"></i>
-
-                                </router-link>
-                            </td>
-                            <td>
-                                <a href="#">
-                                    <i class="mdi mdi-delete" v-on:click="deleteEntry(course.id, index)"></i>
-                                </a>
-                            </td>
-
-                    </tr>
-
-                    </tbody>
-                </table>
             </div>
+        </div>
 
     </div>
-
 </template>
 
 <script>
@@ -60,9 +60,9 @@
         name: "course-view",
         data: function () {
             return {
-                id:null,
+                id: null,
                 courses: [],
-                edit:false,
+                edit: false,
             }
         },
         mounted() {
@@ -79,60 +79,20 @@
         },
         methods: {
             deleteEntry(id, index) {
-                if (confirm("Do you really want to delete it?")) {
-                    var app = this;
-                    axios.delete('/api/v1/courses/' + id)
-                        .then(function (resp) {
-                            app.courses.splice(index, 1);
-                        })
-                        .catch(function (resp) {
-                            alert("Could not delete course");
-                        });
-                }
+                var app = this;
+                bootbox.confirm("Do you really want to delete it?", function(result){
+                    if(result){
+                        axios.delete('/api/v1/courses/' + id)
+                            .then(function (resp) {
+                                app.courses.splice(index, 1);
+                            })
+                            .catch(function (resp) {
+                                bootbox.alert("Could not delete course");
+                            });
+                    }
+                });
             },
 
         }
     }
 </script>
-
-<style scoped>
-    .table-responsive {
-        display: block;
-        width: 100%;
-        overflow-x: auto;
-    }
-    .table {
-        margin-bottom: 0;
-    }
-    .table {
-        width: 100%;
-        margin-bottom: 1rem;
-        color: #212529;
-    }
-    table {
-        border-collapse: collapse;
-    }
-
-    *, *::before, *::after {
-        box-sizing: border-box;
-    }
-    table {
-        display: table;
-        border-collapse: separate;
-        border-spacing: 2px;
-        border-color: grey;
-    }
-    i {
-        display: inline-block;
-        font-size: 20px;
-        width: 40px;
-        text-align: left;
-        color: #4d83ff;
-        cursor: pointer;
-    }
-    .card-description {
-        margin-bottom: .875rem;
-        font-weight: 400;
-        color: #76838f;
-    }
-</style>

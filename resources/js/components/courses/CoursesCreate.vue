@@ -1,29 +1,38 @@
 <template>
     <div class="card-body">
 
-        <div class="card-description row" >
-            <router-link :to="{name: 'indexCourse'}" class="col">
-                <i class="mdi mdi-keyboard-backspace" ></i>
-
+        <div class="card-description row">
+            <router-link tag="button" :to="{name: 'indexCourse'}" type="button"
+                         class="btn btn-outline-secondary btn-rounded btn-icon">
+                <i class="mdi mdi-arrow-left"></i>
             </router-link>
 
             <div class="col">Create new course</div>
         </div>
 
 
-            <div class="form-group">
-                <label>Course title</label>
-                <input type="text" class="form-control form-control-lg" placeholder="Title" aria-label="Title..." v-model="course.title">
-            </div>
-            <div class="form-group">
-                <label>Course description</label>
-                <input type="text" class="form-control" placeholder="Description..." aria-label="Description" v-model="course.description">
-            </div>
-            <div class="col-xs-12 form-group">
-                <button class="btn btn-success" v-on:click="saveForm">Create</button>
-            </div>
+        <div class="form-group">
+            <label>Course title</label>
+            <input type="text" class="form-control form-control-lg" placeholder="Title" aria-label="Title..."
+                   v-model="course.title">
+        </div>
+        <div class="form-group">
+            <label>Course description</label>
+            <textarea style="height: 200px" class="form-control" placeholder="Description..." aria-label="Description"
+                      v-model="course.description"></textarea>
+        </div>
 
-
+        <div class="form-check form-check-flat form-check-primary">
+            <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" v-model="course.ready">
+                Ready
+                <i class="input-helper"></i></label>
+        </div>
+        <div class="form-group text-right">
+            <button  v-on:click="saveForm" class="btn btn-outline-secondary btn-rounded btn-icon">
+                <i class="mdi mdi-check"></i>
+            </button>
+        </div>
     </div>
 </template>
 
@@ -34,6 +43,7 @@
                 course: {
                     title: '',
                     description: '',
+                    ready: false
                 }
             }
         },
@@ -45,7 +55,7 @@
                 axios.post('/api/v1/courses', newCourse)
                     .then(function (resp) {
 
-                        app.$router.push({name:'indexCourse'});
+                        app.$router.push({name: 'indexCourse'});
                     })
                     .catch(function (resp) {
                         console.log(resp);
@@ -55,25 +65,3 @@
         }
     }
 </script>
-
-<style scoped>
-    .form-group {
-        margin-bottom: 1.5rem;
-    }
-    div {
-        display: block;
-    }
-    .card-description {
-        margin-bottom: .875rem;
-        font-weight: 400;
-        color: #76838f;
-    }
-    i {
-        display: inline-block;
-        font-size: 20px;
-        width: 40px;
-        text-align: left;
-        color: #4d83ff;
-        cursor: pointer;
-    }
-</style>

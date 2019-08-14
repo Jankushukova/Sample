@@ -16,27 +16,15 @@
         <ul class="navbar-nav mr-lg-4 w-100">
         </ul>
         <ul class="navbar-nav navbar-nav-right">
-
-            <li class="nav-item nav-profile dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                    <i class="mdi mdi-face"></i>
-                    <span class="nav-profile-name">{{ Auth::user()->first_name.' '.Auth::user()->last_name }} <span
-                                class="caret"></span></span>
+            <li class="nav-item nav-profile">
+                <a class="btn-link  text-dark" href="{{ route('logout') }}"
+                   onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                    <i class="mdi mdi-logout"></i> {{ __('Logout') }}
                 </a>
-                <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                    <a class="dropdown-item">
-                        <i class="mdi mdi-settings text-primary"></i>
-                        Settings
-                    </a>
-                    <a class="dropdown-item" href="{{ route('logout') }}"
-                       onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                        <i class="mdi mdi-logout text-primary"></i> {{ __('Logout') }}
-                    </a>
 
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                </div>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
             </li>
         </ul>
         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"

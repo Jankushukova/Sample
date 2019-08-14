@@ -1,24 +1,31 @@
 <template>
     <div class="card-body">
 
-        <div class="card-description row" >
-            <router-link :to="{name: 'indexCourse'}" >
-                <i class="mdi mdi-keyboard-backspace" ></i>
+        <div class="card-description row">
+            <router-link :to="{name: 'indexCourse'}">
+                <i class="mdi mdi-keyboard-backspace"></i>
             </router-link>
             <div class="col">Edit course</div>
         </div>
 
-            <div class="form-group">
-                <label>Course title</label>
-                <input type="text" class="form-control form-control-lg" placeholder="Title"  v-model="course.title">
-            </div>
-            <div class="form-group">
-                <label>Course description</label>
-                <input type="text" class="form-control" placeholder="Description..." v-model="course.description">
-            </div>
-            <div class="col-xs-12 form-group">
-                <button class="btn btn-success" v-on:click="saveForm">Save</button>
-            </div>
+        <div class="form-group">
+            <label>Course title</label>
+            <input type="text" class="form-control form-control-lg" placeholder="Title" v-model="course.title">
+        </div>
+        <div class="form-group">
+            <label>Course description</label>
+            <input type="text" class="form-control" placeholder="Description..." v-model="course.description">
+        </div>
+
+        <div class="form-check form-check-flat form-check-primary">
+            <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" v-model="course.ready">
+                Ready
+                <i class="input-helper"></i></label>
+        </div>
+        <div class="col-xs-12 form-group">
+            <button class="btn btn-success" v-on:click="saveForm">Save</button>
+        </div>
 
 
     </div>
@@ -33,7 +40,7 @@
             app.courseId = id;
             axios.get('/api/v1/courses/' + id)
                 .then(function (resp) {
-                    app.company = resp.data;
+                    app.course = resp.data;
                 })
                 .catch(function () {
                     alert("Could not load your course")
@@ -42,22 +49,22 @@
         data: function () {
             return {
                 courseId: null,
-                course:{
-                    title:'',
-                    description:'',
+                course: {
+                    title: '',
+                    description: '',
+                    ready: ''
                 }
             }
         },
 
 
-
-
         methods: {
+
             saveForm() {
                 event.preventDefault();
                 var app = this;
                 var newCourse = app.course;
-                axios.patch('/api/v1/courses/' + app.courseId, newCourse )
+                axios.patch('/api/v1/courses/' + app.courseId, newCourse)
                     .then(function (resp) {
                         app.$router.push({name: 'indexCourse'});
 
@@ -77,9 +84,11 @@
         font-weight: 400;
         color: #76838f;
     }
+
     .form-group {
         margin-bottom: 1.5rem;
     }
+
     div {
         display: block;
     }
