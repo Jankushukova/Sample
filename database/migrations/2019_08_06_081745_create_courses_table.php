@@ -17,7 +17,7 @@ class CreateCoursesTable extends Migration
             $table->bigIncrements('id');
             $table->string('title',255);
             $table->string("description");
-            $table->boolean("ready");
+            $table->boolean("ready")->default(false);
             $table->softDeletes();
             $table->timestamps();
         });
