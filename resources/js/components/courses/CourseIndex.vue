@@ -1,9 +1,9 @@
 <template>
-    <div class="card-body">
+    <div class="card-body ">
 
         <div class="card-description row">
             <router-link tag="button" :to="{name: 'createCourse'}" type="button"
-                         class="btn btn-outline-secondary btn-rounded btn-icon">
+                         class="btn btn-outline-secondary btn-rounded btn-icon ">
                 <i class="mdi mdi-plus"></i>
             </router-link>
 
@@ -19,8 +19,8 @@
 
                         <p class="text-right">
                             <router-link tag="button" :to="{name: 'indexLesson', params: {id: course.id}}" type="button"
-                                         class="btn btn-outline-secondary btn-rounded btn-icon">
-                                <i class="fab fa-readme"></i>
+                                         class="btn  btn-outline-light btn-rounded btn-icon bg-bitlab">
+                                <i class="fab fa-readme "></i>
                             </router-link>
                         </p>
                     </div>

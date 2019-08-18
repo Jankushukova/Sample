@@ -1,56 +1,58 @@
 <template>
-    <div class="card-body">
+    <div class="card-body ">
+
         <div class="card-description row">
-            <router-link :to="{name: 'indexCourse'}"  class="col">
-                <i class="mdi mdi-keyboard-backspace" ></i>
-            </router-link>
-            <router-link :to="{name: 'createLesson', params: {id: courseId}}" >
-                <i class="mdi mdi-plus-circle-outline col" ></i>
+
+            <router-link tag="button" :to="{name: 'indexCourse'}" type="button"
+                         class="btn btn-outline-secondary btn-rounded btn-icon mr-2">
+                <i class="mdi mdi-arrow-left"></i>
             </router-link>
 
-            <div class="col">Lessons list</div>
+            <router-link tag="button" :to="{name: 'createLesson'}" type="button"
+                         class="btn btn-outline-secondary btn-rounded btn-icon">
+                <i class="mdi mdi-plus"></i>
+            </router-link>
+
         </div>
-        <div class="table-responsive" >
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>&nbsp;</th>
-                    <th>&nbsp;</th>
+        <div class="row">
+            <div class="col-md-4 grid-margin stretch-card" v-for="lesson, index in lessons">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">{{lesson.title}}</h4>
+                        <p class="card-description">
+                            {{lesson.description}}
+                        </p>
 
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="lesson, index in lessons" >
+                        <p class="text-right">
+                            <router-link tag="button" :to="{name: 'indexMaterial', params: {id: lesson.id}}" type="button"
+                                         class="btn  btn-outline-light btn-rounded btn-icon bg-bitlab">
+                                <i class="fab fa-readme"></i>
+                            </router-link>
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <span  class="mdi mdi-pound " >
+                                    {{lesson.lesson_order}}
+                                </span>
 
-                    <td class="py-1">
-                        {{lesson.lesson_order}}
-                    </td>
+                            </div>
+                            <div class="col-lg-6">
+                                <p class="text-right">
+                                    <router-link tag="button" class="btn btn-icon" :to="{name: 'editLesson', params: {id: lesson.id}}">
+                                        <i class="mdi mdi-border-color "></i>
+                                    </router-link>
 
-                    <router-link :to="{name: 'indexMaterial', params: {id: lesson.id}}" >
-                        <td >{{ lesson.title }}</td>
-                    </router-link>
-
-                    <td>{{ lesson.description }}</td>
-
-                    <td >
-                        <router-link :to="{name: 'editLesson', params: {id: lesson.id}}" >
-                            <i class="mdi mdi-border-color"></i>
-
-                        </router-link>
-                    </td>
-                    <td>
-                        <a href="#">
-                            <i class="mdi mdi-delete" v-on:click="deleteEntry(lesson.id, index)"></i>
-                        </a>
-                    </td>
-
-                </tr>
-
-                </tbody>
-            </table>
+                                    <button class="btn btn-icon">
+                                        <i class="mdi mdi-delete " v-on:click="deleteEntry(lesson.id, index)"></i>
+                                    </button>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -101,43 +103,5 @@
 </script>
 
 <style scoped>
-    .table-responsive {
-        display: block;
-        width: 100%;
-        overflow-x: auto;
-    }
-    .table {
-        margin-bottom: 0;
-    }
-    .table {
-        width: 100%;
-        margin-bottom: 1rem;
-        color: #212529;
-    }
-    table {
-        border-collapse: collapse;
-    }
 
-    *, *::before, *::after {
-        box-sizing: border-box;
-    }
-    table {
-        display: table;
-        border-collapse: separate;
-        border-spacing: 2px;
-        border-color: grey;
-    }
-    i {
-        display: inline-block;
-        font-size: 20px;
-        width: 40px;
-        text-align: left;
-        color: #4d83ff;
-        cursor: pointer;
-    }
-    .card-description {
-        margin-bottom: .875rem;
-        font-weight: 400;
-        color: #76838f;
-    }
 </style>

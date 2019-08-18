@@ -1,34 +1,35 @@
 <template>
     <div class="card-body">
 
-
-        <div class="card-description row" >
-            <router-link :to="{name: 'indexLesson'}" class="col">
-                <i class="mdi mdi-keyboard-backspace" ></i>
-
+        <div class="card-description row">
+            <router-link tag="button" :to="{name: 'indexLesson'}" type="button"
+                         class="btn btn-outline-secondary btn-rounded btn-icon">
+                <i class="mdi mdi-arrow-left"></i>
             </router-link>
-
             <div class="col">Create new lesson</div>
         </div>
 
-
         <div class="form-group">
             <label>Lesson title</label>
-            <input type="text" class="form-control form-control-lg" placeholder="Title" aria-label="Title..." v-model="lesson.title">
+            <input type="text" class="form-control form-control-lg" placeholder="Title" aria-label="Title..."
+                   v-model="lesson.title">
         </div>
         <div class="form-group">
             <label>Lesson description</label>
-            <input type="text" class="form-control" placeholder="Description..." aria-label="Description" v-model="lesson.description">
+            <textarea style="height: 200px" class="form-control" placeholder="Description..." aria-label="Description"
+                      v-model="lesson.description"></textarea>
         </div>
+
         <div class="form-group">
             <label>Lesson order</label>
-            <input type="text" class="form-control" placeholder="Order..." aria-label="Description" v-model="lesson.lesson_order">
+            <input type="text" class="form-control form-control-lg" placeholder="Order..." aria-label="Title..."
+                   v-model="lesson.lesson_order">
         </div>
-        <div class="col-xs-12 form-group">
-            <button class="btn btn-success" v-on:click="saveForm">Create</button>
+        <div class="form-group text-right">
+            <button  v-on:click="saveForm" class="btn btn-outline-secondary btn-rounded btn-icon">
+                <i class="mdi mdi-check"></i>
+            </button>
         </div>
-
-
     </div>
 </template>
 
@@ -66,23 +67,5 @@
 </script>
 
 <style scoped>
-    .form-group {
-        margin-bottom: 1.5rem;
-    }
-    div {
-        display: block;
-    }
-    .card-description {
-        margin-bottom: .875rem;
-        font-weight: 400;
-        color: #76838f;
-    }
-    i {
-        display: inline-block;
-        font-size: 20px;
-        width: 40px;
-        text-align: left;
-        color: #4d83ff;
-        cursor: pointer;
-    }
+
 </style>

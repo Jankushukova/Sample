@@ -2,19 +2,22 @@
     <div class="card-body">
 
         <div class="card-description row">
-            <router-link :to="{name: 'indexCourse'}">
-                <i class="mdi mdi-keyboard-backspace"></i>
+            <router-link tag="button" :to="{name: 'indexCourse'}" type="button"
+                         class="btn btn-outline-secondary btn-rounded btn-icon">
+                <i class="mdi mdi-arrow-left"></i>
             </router-link>
             <div class="col">Edit course</div>
         </div>
 
         <div class="form-group">
             <label>Course title</label>
-            <input type="text" class="form-control form-control-lg" placeholder="Title" v-model="course.title">
+            <input type="text" class="form-control form-control-lg" placeholder="Title" aria-label="Title..."
+                   v-model="course.title">
         </div>
         <div class="form-group">
             <label>Course description</label>
-            <input type="text" class="form-control" placeholder="Description..." v-model="course.description">
+            <textarea style="height: 200px" class="form-control" placeholder="Description..." aria-label="Description"
+                      v-model="course.description"></textarea>
         </div>
 
         <div class="form-check form-check-flat form-check-primary">
@@ -23,8 +26,10 @@
                 Ready
                 <i class="input-helper"></i></label>
         </div>
-        <div class="col-xs-12 form-group">
-            <button class="btn btn-success" v-on:click="saveForm">Save</button>
+        <div class="form-group text-right">
+            <button  v-on:click="saveForm" class="btn btn-outline-secondary btn-rounded btn-icon">
+                <i class="mdi mdi-check"></i>
+            </button>
         </div>
 
 
@@ -79,17 +84,5 @@
 </script>
 
 <style scoped>
-    .card-description {
-        margin-bottom: .875rem;
-        font-weight: 400;
-        color: #76838f;
-    }
 
-    .form-group {
-        margin-bottom: 1.5rem;
-    }
-
-    div {
-        display: block;
-    }
 </style>

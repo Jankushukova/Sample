@@ -1,58 +1,61 @@
 <template>
-    <div class="card-body">
+    <div class="card-body ">
+
         <div class="card-description row">
-            <router-link :to="{name: 'indexLesson'}"  class="col">
-                <i class="mdi mdi-keyboard-backspace" ></i>
-            </router-link>
-            <router-link :to="{name: 'createMaterial', params: {id: lessonId}}" >
-                <i class="mdi mdi-plus-circle-outline col" ></i>
+
+            <router-link tag="button" :to="{name: 'indexLesson'}" type="button"
+                         class="btn btn-outline-secondary btn-rounded btn-icon mr-2">
+                <i class="mdi mdi-arrow-left"></i>
             </router-link>
 
-            <div class="col">Materials list</div>
+            <router-link tag="button" :to="{name: 'createMaterial', params: {id: lessonId}}" type="button"
+                         class="btn btn-outline-secondary btn-rounded btn-icon">
+                <i class="mdi mdi-plus"></i>
+            </router-link>
+
         </div>
-        <div class="table-responsive" >
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Title</th>
-                    <th>Content</th>
-                    <th>Material type</th>
-                    <th>&nbsp;</th>
-                    <th>&nbsp;</th>
+        <div class="row">
+            <div class="col-md-4 grid-margin stretch-card" v-for="material, index in materials" v-if="material.lesson_id==lessonId">
+                <div class="card" >
+                    <div class="card-body">
+                        <h4 class="card-title">{{material.title}}</h4>
+                        <p class="card-description">
+                            <i v-if="material.material_type_id==1">Lection</i>
+                            <i v-else-if="material.material_type_id==2">Practice</i>
+                            <i v-else-if="material.material_type_id==3">Theory</i>
 
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="material, index in materials" >
+                        </p>
 
-                    <td class="py-1">
-                        {{material.material_order}}
-                    </td>
+                        <p class="text-right">
+                            <router-link tag="button" :to="{name: 'indexMaterial', params: {id: material.id}}" type="button"
+                                         class="btn  btn-outline-light btn-rounded btn-icon bg-bitlab">
+                                <i class="fas fa-eye"></i>
+                            </router-link>
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <span  class="mdi mdi-pound " >
+                                    {{material.material_order}}
+                                </span>
 
-                    <router-link :to="{name: 'seeMaterial', params: {id: material.id}}" >
-                        <td >{{ material.title }}</td>
-                    </router-link>
+                            </div>
+                            <div class="col-lg-6">
+                                <p class="text-right">
+                                    <router-link tag="button" class="btn btn-icon" :to="{name: 'editMaterial', params: {id: material.id}}">
+                                        <i class="mdi mdi-border-color "></i>
+                                    </router-link>
 
-                    <td>{{ material.content }}</td>
-                    <td>{{ material.material_type_id }}</td>
-
-                    <td >
-                        <router-link :to="{name: 'editMaterial', params: {id: material.id}}" >
-                            <i class="mdi mdi-border-color"></i>
-
-                        </router-link>
-                    </td>
-                    <td>
-                        <a href="#">
-                            <i class="mdi mdi-delete" v-on:click="deleteEntry(material.id, index)"></i>
-                        </a>
-                    </td>
-
-                </tr>
-
-                </tbody>
-            </table>
+                                    <button class="btn btn-icon">
+                                        <i class="mdi mdi-delete " v-on:click="deleteEntry(material.id, index)"></i>
+                                    </button>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -99,43 +102,5 @@
 </script>
 
 <style scoped>
-    .table-responsive {
-        display: block;
-        width: 100%;
-        overflow-x: auto;
-    }
-    .table {
-        margin-bottom: 0;
-    }
-    .table {
-        width: 100%;
-        margin-bottom: 1rem;
-        color: #212529;
-    }
-    table {
-        border-collapse: collapse;
-    }
 
-    *, *::before, *::after {
-        box-sizing: border-box;
-    }
-    table {
-        display: table;
-        border-collapse: separate;
-        border-spacing: 2px;
-        border-color: grey;
-    }
-    i {
-        display: inline-block;
-        font-size: 20px;
-        width: 40px;
-        text-align: left;
-        color: #4d83ff;
-        cursor: pointer;
-    }
-    .card-description {
-        margin-bottom: .875rem;
-        font-weight: 400;
-        color: #76838f;
-    }
 </style>

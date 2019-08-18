@@ -1,11 +1,10 @@
 <template>
     <div class="card-body">
 
-
-        <div class="card-description row" >
-            <router-link :to="{name: 'indexMaterial'}" class="col">
-                <i class="mdi mdi-keyboard-backspace" ></i>
-
+        <div class="card-description row">
+            <router-link tag="button" :to="{name: 'indexMaterial'}" type="button"
+                         class="btn btn-outline-secondary btn-rounded btn-icon">
+                <i class="mdi mdi-arrow-left"></i>
             </router-link>
 
             <div class="col">Create new material</div>
@@ -14,26 +13,32 @@
 
         <div class="form-group">
             <label>Material title</label>
-            <input type="text" class="form-control form-control-lg" placeholder="Title" aria-label="Title..." v-model="material.title">
+            <input type="text" class="form-control form-control-lg" placeholder="Title" aria-label="Title..."
+                   v-model="material.title">
         </div>
         <div class="form-group">
             <label>Material content</label>
-            <input type="text" class="form-control" placeholder="Content..." aria-label="Description" v-model="material.content">
+            <textarea style="height: 200px" class="form-control" placeholder="Content..." aria-label="Description"
+                      v-model="material.content"></textarea>
         </div>
         <div class="form-group">
             <label>Material order</label>
-            <input type="text" class="form-control" placeholder="Order..." aria-label="Description" v-model="material.material_order">
+            <input type="text" class="form-control form-control-lg" placeholder="Order" aria-label="Title..."
+                   v-model="material.material_order">
         </div>
-        <div class="form-group">
-            <label>Material type</label>
-            <input type="text" class="form-control" placeholder="Type..." aria-label="Description" v-model="material.material_type_id">
+        <div >
+          <input type="radio" id="lec" value="Lection" v-model="typeofmaterial">
+            <label for="lec">Lection</label>
+            <input type="radio" id="prac" value="Practice" v-model="typeofmaterial">
+            <label for="prac">Practice</label>
+            <input type="radio" id="theo" value="Theory" v-model="typeofmaterial">
+            <label for="theo">Theory</label>
         </div>
-
-        <div class="col-xs-12 form-group">
-            <button class="btn btn-success" v-on:click="saveForm">Create</button>
+        <div class="form-group text-right">
+            <button  v-on:click="saveForm" class="btn btn-outline-secondary btn-rounded btn-icon">
+                <i class="mdi mdi-check"></i>
+            </button>
         </div>
-
-
     </div>
 </template>
 
@@ -48,6 +53,7 @@
                     material_order:null,
                     material_type_id:null,
                 },
+                typeofmaterial:"",
 
             }
         },
@@ -55,7 +61,15 @@
             saveForm() {
                 event.preventDefault();
                 var app = this;
+
+                switch (this.typeofmaterial) {
+                    case "Lection": app.material.material_type_id=1;break;
+                    case "Practice": app.material.material_type_id=2;break;
+                    case "Theory": app.material.material_type_id=3;break;
+
+                }
                 app.material.lesson_id = app.$route.params.id;
+
                 var newLesson = app.material;
                 axios.post('/api/v1/materials', newLesson)
                     .then(function (resp) {
@@ -72,23 +86,5 @@
 </script>
 
 <style scoped>
-    .form-group {
-        margin-bottom: 1.5rem;
-    }
-    div {
-        display: block;
-    }
-    .card-description {
-        margin-bottom: .875rem;
-        font-weight: 400;
-        color: #76838f;
-    }
-    i {
-        display: inline-block;
-        font-size: 20px;
-        width: 40px;
-        text-align: left;
-        color: #4d83ff;
-        cursor: pointer;
-    }
+
 </style>
