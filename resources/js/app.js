@@ -4,6 +4,7 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+
 require('./bootstrap');
 
 window.Vue = require('vue');
@@ -32,7 +33,11 @@ import MaterialIndex from "./components/courses/materials/MaterialIndex";
 import MaterialCreate from "./components/courses/materials/MaterialCreate";
 import MaterialEdit from "./components/courses/materials/MaterialEdit";
 
+//users
 
+import UserIndex from "./components/users/UserIndex";
+import UserEdit from "./components/users/UserEdit";
+import UserCreate from "./components/users/UserCreate";
 
 
 const router = new VueRouter({
@@ -43,46 +48,46 @@ const router = new VueRouter({
             component: CoursesWrapper,
             children: [
                 {
-                    path: '/',
+                    path: '/admin/courses/',
                     component: CoursesIndex,
                     name: 'indexCourse'
                 },
                 {
-                    path: '/create',
+                    path: '/admin/courses/create',
                     component: CoursesCreate,
                     name: 'createCourse'
                 },
                 {
-                    path: '/edit',
+                    path: '/admin/courses/edit',
                     component: CoursesEdit,
                     name: 'editCourse'
                 },
                 {
-                    path: '/lesson:id',
+                    path: '/admin/courses/lesson:id',
                     component: LessonsIndex,
                     name: 'indexLesson'
                 },
                 {
-                    path: '/lesson/create:id',
+                    path: '/admin/courses/lesson/create:id',
                     component: LessonsCreate,
                     name: 'createLesson'
                 },{
-                    path: '/lesson/edit:id',
+                    path: '/admin/courses/lesson/edit:id',
                     component: LessonsEdit,
                     name: 'editLesson'
                 },
                 {
-                    path: '/lesson/material:id',
+                    path: '/admin/courses/lesson/material:id',
                     component: MaterialIndex,
                     name: 'indexMaterial'
                 },
                 {
-                    path: '/lesson/material/create:id',
+                    path: '/admin/courses/lesson/material/create:id',
                     component: MaterialCreate,
                     name: 'createMaterial'
                 },
                 {
-                    path: '/lesson/material/edit:id',
+                    path: '/admin/courses/lesson/material/edit:id',
                     component: MaterialEdit,
                     name: 'editMaterial'
                 },
@@ -98,8 +103,22 @@ const router = new VueRouter({
         {
             path: '/admin/users',
             component: UsersWrapper,
-            name: 'wrapperUser',
             children: [
+                {
+                    path: '/admin/users/',
+                    component: UserIndex,
+                    name: 'indexUser'
+                },
+                {
+                    path: '/admin/users/create',
+                    component: UserCreate,
+                    name: 'createUser'
+                },
+                {
+                    path: '/admin/users/edit',
+                    component: UserEdit,
+                    name: 'editUser'
+                },
             ],
         },
         {

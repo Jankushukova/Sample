@@ -1,21 +1,18 @@
 <?php
 
+
 namespace App\Http\Controllers\Api\V1;
 
-use App\Course;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class CoursesController extends Controller
+use App\Http\Controllers\Controller;
+use App\User;
+use Illuminate\Http\Request;
+
+class UsersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        return Course::all();
+        return User::all();
     }
 
     /**
@@ -28,6 +25,11 @@ class CoursesController extends Controller
         //
     }
 
+    public function specific($id)
+    {
+        return User::find($id);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -36,7 +38,7 @@ class CoursesController extends Controller
      */
     public function store(Request $request)
     {
-        $course = Course::create($request->all());
+        $course = User::create($request->all());
         return $course;
     }
 
@@ -49,8 +51,11 @@ class CoursesController extends Controller
     public function show($id)
     {
 
-        return Course::findorFail($id);
+        return User::findorFail($id);
     }
+
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -71,7 +76,7 @@ class CoursesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $course = Course::findorFail($id);
+        $course = User::findorFail($id);
         $course->update($request->all());
         return $course;
     }
@@ -84,8 +89,9 @@ class CoursesController extends Controller
      */
     public function destroy($id)
     {
-        $course = Course::findOrFail($id);
+        $course = User::findOrFail($id);
         $course->delete();
         return response()->json(['success' => true]);
     }
+
 }

@@ -74,7 +74,8 @@
                 })
                 .catch(function (resp) {
                     console.log(resp);
-                    alert("Could not load course");
+                    bootbox.alert("Could not load course");
+
                 });
         },
         methods: {

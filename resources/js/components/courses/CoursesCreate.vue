@@ -59,7 +59,8 @@
                     })
                     .catch(function (resp) {
                         console.log(resp);
-                        alert("Could not create your course");
+                        bootbox.alert("Could not create your course");
+
                     });
             }
         }

@@ -81,21 +81,24 @@
                 })
                 .catch(function (resp) {
                     console.log(resp);
-                    alert("Could not load lesson");
+                    bootbox.alert("Could not load lesson");
                 });
         },
         methods: {
             deleteEntry(id, index) {
-                if (confirm("Do you really want to delete it?")) {
+                bootbox.confirm("Do you really want to delete it?", function(result){
+                    if(result){
                     var app = this;
                     axios.delete('/api/v1/lessons/' + id)
                         .then(function (resp) {
                             app.lessons.splice(index, 1);
                         })
                         .catch(function (resp) {
-                            alert("Could not delete lesson");
+                            bootbox.alert("Could not delete lesson");
+
                         });
-                }
+                    }
+                });
             },
 
         }

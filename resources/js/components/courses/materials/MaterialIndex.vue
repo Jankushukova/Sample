@@ -80,21 +80,26 @@
                 })
                 .catch(function (resp) {
                     console.log(resp);
-                    alert("Could not load material");
+                    bootbox.alert("Could not load material");
+
                 });
         },
         methods: {
             deleteEntry(id, index) {
-                if (confirm("Do you really want to delete it?")) {
-                    var app = this;
-                    axios.delete('/api/v1/materials/' + id)
-                        .then(function (resp) {
-                            app.materials.splice(index, 1);
-                        })
-                        .catch(function (resp) {
-                            alert("Could not delete material");
-                        });
-                }
+                bootbox.confirm("Do you really want to delete it?", function(result){
+                    if(result){
+                        var app = this;
+                        axios.delete('/api/v1/materials/' + id)
+                            .then(function (resp) {
+                                app.materials.splice(index, 1);
+                            })
+                            .catch(function (resp) {
+                                bootbox.alert("Could not delete material");
+
+                            });
+                    }
+
+                });
             },
 
         }

@@ -19,7 +19,7 @@
             </router-link>
         </li>
         <li class="nav-item">
-            <router-link :to="{ name: 'wrapperUser' }" class="nav-link ">
+            <router-link :to="{ name: 'indexUser' }" class="nav-link ">
                 <i class="mdi mdi-account-multiple menu-icon "></i>
                 <span class="menu-title">Пользователи</span>
             </router-link>

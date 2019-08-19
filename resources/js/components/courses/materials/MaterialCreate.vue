@@ -78,7 +78,8 @@
                     })
                     .catch(function (resp) {
                         console.log(resp);
-                        alert("Could not create your material");
+                        bootbox.alert("Could not create your material");
+
                     });
             }
         }

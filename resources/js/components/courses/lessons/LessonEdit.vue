@@ -76,7 +76,8 @@
                     })
                     .catch(function (resp) {
                         console.log(resp);
-                        alert("Could not edit your lesson");
+                        bootbox.alert("Could not edit your lesson");
+
                     });
             }
         }

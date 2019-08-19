@@ -92,7 +92,8 @@
                     })
                     .catch(function (resp) {
                         console.log(resp);
-                        alert("Could not edit your material");
+                        bootbox.alert("Could not edit your material");
+
                     });
             }
         }

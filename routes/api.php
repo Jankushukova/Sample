@@ -20,6 +20,7 @@ Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], funct
     Route::resource('courses', 'CoursesController', ['except' => ['create', 'edit']]);
     Route::resource('lessons', 'LessonsController', ['except' => ['create', 'edit']]);
     Route::resource('materials', 'MaterialsController', ['except' => ['create', 'edit']]);
+    Route::resource('users', 'UsersController', ['except' => ['create', 'edit']]);
 
 });
 

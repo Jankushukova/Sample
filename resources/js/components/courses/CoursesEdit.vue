@@ -48,7 +48,8 @@
                     app.course = resp.data;
                 })
                 .catch(function () {
-                    alert("Could not load your course")
+                    bootbox.alert("Could not load your course");
+
                 });
         },
         data: function () {
@@ -76,7 +77,8 @@
                     })
                     .catch(function (resp) {
                         console.log(resp);
-                        alert("Could not edit your course");
+                        bootbox.alert("Could not edit your course");
+
                     });
             }
         }
