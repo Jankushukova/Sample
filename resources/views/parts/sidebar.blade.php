@@ -14,7 +14,7 @@
                 </router-link>
             </li>
             <li class="nav-item">
-                <router-link :to="{ name: 'wrapperAccess' }" class="nav-link ">
+                <router-link :to="{ name: 'indexAccess' }" class="nav-link ">
                     <i class="mdi mdi-account-key menu-icon "></i>
                     <span class="menu-title">Доступы</span>
                 </router-link>

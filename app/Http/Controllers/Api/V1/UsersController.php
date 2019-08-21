@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 
 
 use App\Http\Controllers\Controller;
+use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +19,17 @@ class UsersController extends Controller
     public function index()
     {
         return User::all();
+    }
+
+
+    public function getTeachers()
+    {
+        return User::where('role_id', Role::TEACHER_ID)->get();
+    }
+
+    public function getStudents()
+    {
+        return User::where('role_id', Role::STUDENT_ID)->get();
     }
 
     /**

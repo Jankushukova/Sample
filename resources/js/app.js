@@ -39,6 +39,11 @@ import UserIndex from "./components/users/UserIndex";
 import UserEdit from "./components/users/UserEdit";
 import UserCreate from "./components/users/UserCreate";
 
+//access
+
+import AccessIndex from "./components/accesses/AccessIndex";
+import StudentIndex from "./components/accesses/students/StudentIndex";
+import TeacherIndex from "./components/accesses/teachers/TeacherIndex";
 
 const router = new VueRouter({
     routes: [
@@ -126,6 +131,21 @@ const router = new VueRouter({
             component: AccessesWrapper,
             name: 'wrapperAccess',
             children: [
+                {
+                    path: '/admin/accesses/',
+                    component: AccessIndex,
+                    name: 'indexAccess'
+                },
+                {
+                    path: '/admin/accesses/students',
+                    component: StudentIndex,
+                    name: 'studentAccessIndex'
+                },
+                {
+                    path: '/admin/accesses/teachers',
+                    component: TeacherIndex,
+                    name: 'teacherAccessIndex'
+                },
             ],
         },
         {path: '/',component: ExampleComponent, name:"index",
