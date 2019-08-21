@@ -2268,6 +2268,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "lesson-view",
   data: function data() {
@@ -2275,7 +2279,8 @@ __webpack_require__.r(__webpack_exports__);
       id: null,
       lessons: [],
       edit: false,
-      courseId: null
+      courseId: null,
+      course: null
     };
   },
   mounted: function mounted() {
@@ -2287,6 +2292,12 @@ __webpack_require__.r(__webpack_exports__);
     })["catch"](function (resp) {
       console.log(resp);
       bootbox.alert("Could not load lesson");
+    });
+    axios.get('/api/v1/courses/' + app.courseId).then(function (resp) {
+      this.course = resp;
+    })["catch"](function (err) {
+      console.log(err);
+      alert('Could not load course');
     });
   },
   methods: {
@@ -39969,6 +39980,10 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card-body " }, [
+    _c("div", { staticClass: "card-title" }, [
+      _vm._v("\n        " + _vm._s(_vm.course.title) + "\n    ")
+    ]),
+    _vm._v(" "),
     _c(
       "div",
       { staticClass: "card-description row" },

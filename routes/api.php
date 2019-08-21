@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 });
 Route::group([
-//        'middleware' => 'auth:api',
+        'middleware' => 'auth:web',
         'prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], function () {
     Route::resource('courses', 'CoursesController', ['except' => ['create', 'edit']]);
     Route::resource('lessons', 'LessonsController', ['except' => ['create', 'edit']]);

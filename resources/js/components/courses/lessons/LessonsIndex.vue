@@ -1,6 +1,8 @@
 <template>
     <div class="card-body ">
-
+        <div class="card-title">
+            {{course.title}}
+        </div>
         <div class="card-description row">
 
             <router-link tag="button" :to="{name: 'indexCourse'}" type="button"
@@ -24,7 +26,8 @@
                         </p>
 
                         <p class="text-right">
-                            <router-link tag="button" :to="{name: 'indexMaterial', params: {id: lesson.id}}" type="button"
+                            <router-link tag="button" :to="{name: 'indexMaterial', params: {id: lesson.id}}"
+                                         type="button"
                                          class="btn  btn-outline-light btn-rounded btn-icon bg-bitlab">
                                 <i class="fab fa-readme"></i>
                             </router-link>
@@ -33,14 +36,15 @@
                     <div class="card-footer">
                         <div class="row">
                             <div class="col-lg-6">
-                                <span  class="mdi mdi-pound " >
+                                <span class="mdi mdi-pound ">
                                     {{lesson.lesson_order}}
                                 </span>
 
                             </div>
                             <div class="col-lg-6">
                                 <p class="text-right">
-                                    <router-link tag="button" class="btn btn-icon" :to="{name: 'editLesson', params: {id: lesson.id}}">
+                                    <router-link tag="button" class="btn btn-icon"
+                                                 :to="{name: 'editLesson', params: {id: lesson.id}}">
                                         <i class="mdi mdi-border-color "></i>
                                     </router-link>
 
@@ -65,12 +69,14 @@
         name: "lesson-view",
         data: function () {
             return {
-                id:null,
+                id: null,
                 lessons: [],
-                edit:false,
-                courseId:null,
+                edit: false,
+                courseId: null,
+                course: null,
             }
         },
+
         mounted() {
             let app = this;
             let id = app.id;
@@ -83,6 +89,15 @@
                     console.log(resp);
                     bootbox.alert("Could not load lesson");
                 });
+
+            axios.get('/api/v1/courses/' + app.courseId)
+                .then(function (resp) {
+                    this.course = resp;
+                })
+                .catch(function (err) {
+                    console.log(err);
+                    alert('Could not load course');
+                })
         },
         methods: {
             deleteEntry(id, index) {
