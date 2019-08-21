@@ -1,6 +1,6 @@
 <template>
     <div class="card-body ">
-        <div class="card-title">
+        <div class="card-title" v-if="course">
             {{course.title}}
         </div>
         <div class="card-description row">
@@ -92,7 +92,7 @@
 
             axios.get('/api/v1/courses/' + app.courseId)
                 .then(function (resp) {
-                    this.course = resp;
+                    app.course = resp;
                 })
                 .catch(function (err) {
                     console.log(err);

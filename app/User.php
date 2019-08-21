@@ -42,4 +42,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+
+    public function isAdmin(){
+        return $this->role_id == Role::ADMIN_ID;
+    }
+
+    public function isTeacher(){
+        return $this->role_id == Role::TEACHER_ID;
+    }
+
+    public function isStudent(){
+        return $this->role_id == Role::STUDENT_ID;
+    }
 }

@@ -2294,7 +2294,7 @@ __webpack_require__.r(__webpack_exports__);
       bootbox.alert("Could not load lesson");
     });
     axios.get('/api/v1/courses/' + app.courseId).then(function (resp) {
-      this.course = resp;
+      app.course = resp;
     })["catch"](function (err) {
       console.log(err);
       alert('Could not load course');
@@ -39980,9 +39980,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card-body " }, [
-    _c("div", { staticClass: "card-title" }, [
-      _vm._v("\n        " + _vm._s(_vm.course.title) + "\n    ")
-    ]),
+    _vm.course
+      ? _c("div", { staticClass: "card-title" }, [
+          _vm._v("\n        " + _vm._s(_vm.course.title) + "\n    ")
+        ])
+      : _vm._e(),
     _vm._v(" "),
     _c(
       "div",
