@@ -4,18 +4,19 @@
 namespace App\Http\Controllers\Api\V1;
 
 
-use App\Course;
+use App\GroupsUsers;
 use App\Http\Controllers\Controller;
-use App\Lesson;
-use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 
-class LessonsController extends Controller
+class GroupsStudentsController extends Controller
 {
     public function index($id)
     {
-        return Lesson::where('course_id', $id)->get();
+        return User::
+        join('groups_users', 'groups_users.student_id', '=', 'users.id')
+            ->where('groups_users.group_id', $id)
+            ->get();
     }
 
     /**
@@ -30,7 +31,7 @@ class LessonsController extends Controller
 
     public function specific($id)
     {
-        return Lesson::find($id);
+        return GroupsUsers::find($id);
     }
 
     /**
@@ -41,7 +42,7 @@ class LessonsController extends Controller
      */
     public function store(Request $request)
     {
-        $course = Lesson::create($request->all());
+        $course = GroupsUsers::create($request->all());
         return $course;
     }
 
@@ -54,7 +55,7 @@ class LessonsController extends Controller
     public function show($id)
     {
 
-        return Lesson::findorFail($id);
+        return GroupsUsers::findorFail($id);
     }
 
 
@@ -68,7 +69,6 @@ class LessonsController extends Controller
      */
     public function edit($id)
     {
-        echo "edit";
     }
 
     /**
@@ -80,8 +80,7 @@ class LessonsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        echo "update";
-        $course = Lesson::findorFail($id);
+        $course = GroupsUsers::findorFail($id);
         $course->update($request->all());
         return $course;
     }
@@ -94,9 +93,11 @@ class LessonsController extends Controller
      */
     public function destroy($id)
     {
-        $course = Lesson::findOrFail($id);
+        $course = GroupsUsers::findOrFail($id);
         $course->delete();
         return response()->json(['success' => true]);
     }
 
 }
+
+

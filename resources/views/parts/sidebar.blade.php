@@ -26,7 +26,7 @@
                 </router-link>
             </li>
             <li class="nav-item">
-                <router-link :to="{ name: 'wrapperGroup' }" class="nav-link">
+                <router-link :to="{ name: 'indexGroup' }" class="nav-link">
                     <i class="mdi mdi-buffer menu-icon "></i>
                     <span class="menu-title">Группы</span>
                 </router-link>

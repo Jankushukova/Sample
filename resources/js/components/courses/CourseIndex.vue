@@ -18,7 +18,7 @@
                         </p>
 
                         <p class="text-right">
-                            <router-link tag="button" :to="{name: 'indexLesson', params: {id: course.id}}" type="button"
+                            <router-link tag="button" :to="{name: 'indexLesson', params: {course_id: course.id}}" type="button"
                                          class="btn  btn-outline-light btn-rounded btn-icon bg-bitlab">
                                 <i class="fab fa-readme "></i>
                             </router-link>

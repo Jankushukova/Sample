@@ -4,19 +4,21 @@
 namespace App\Http\Controllers\Api\V1;
 
 
-use App\Course;
 use App\Http\Controllers\Controller;
-use App\Lesson;
+use App\GroupTeacher;
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 
-class LessonsController extends Controller
+class GroupsTeachersController extends Controller
 {
     public function index($id)
-    {
-        return Lesson::where('course_id', $id)->get();
-    }
+{
+    return User::
+        join('group_teachers', 'group_teachers.teacher_id', '=', 'users.id')
+        ->where('group_teachers.group_id', $id)
+        ->get();
+}
 
     /**
      * Show the form for creating a new resource.
@@ -24,14 +26,14 @@ class LessonsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
-    }
+{
+    //
+}
 
     public function specific($id)
-    {
-        return Lesson::find($id);
-    }
+{
+    return GroupTeacher::find($id);
+}
 
     /**
      * Store a newly created resource in storage.
@@ -40,10 +42,10 @@ class LessonsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $course = Lesson::create($request->all());
-        return $course;
-    }
+{
+    $course = GroupTeacher::create($request->all());
+    return $course;
+}
 
     /**
      * Display the specified resource.
@@ -52,10 +54,10 @@ class LessonsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
+{
 
-        return Lesson::findorFail($id);
-    }
+    return GroupTeacher::findorFail($id);
+}
 
 
 
@@ -67,9 +69,8 @@ class LessonsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        echo "edit";
-    }
+{
+}
 
     /**
      * Update the specified resource in storage.
@@ -79,12 +80,11 @@ class LessonsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        echo "update";
-        $course = Lesson::findorFail($id);
-        $course->update($request->all());
-        return $course;
-    }
+{
+    $course = GroupTeacher::findorFail($id);
+    $course->update($request->all());
+    return $course;
+}
 
     /**
      * Remove the specified resource from storage.
@@ -93,10 +93,11 @@ class LessonsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        $course = Lesson::findOrFail($id);
-        $course->delete();
-        return response()->json(['success' => true]);
-    }
+{
+    $course = GroupTeacher::findOrFail($id);
+    $course->delete();
+    return response()->json(['success' => true]);
+}
 
 }
+

@@ -2,7 +2,7 @@
     <div class="card-body">
 
         <div class="card-description row">
-            <router-link tag="button" :to="{name: 'indexLesson'}" type="button"
+            <router-link tag="button" :to="{name: 'indexLesson',params: {id:lesson.course_id}}" type="button"
                          class="btn btn-outline-secondary btn-rounded btn-icon">
                 <i class="mdi mdi-arrow-left"></i>
             </router-link>
@@ -50,12 +50,13 @@
             saveForm() {
                 event.preventDefault();
                 var app = this;
-                app.lesson.course_id = app.$route.params.id;
+                app.lesson.course_id = app.$route.params.course_id;
                 var newLesson = app.lesson;
+
                 axios.post('/api/v1/lessons', newLesson)
                     .then(function (resp) {
 
-                        app.$router.push({name:'indexLesson'});
+                        app.$router.push({name:'indexLesson',params:{id:app.lesson.course_id}});
                     })
                     .catch(function (resp) {
                         console.log(resp);

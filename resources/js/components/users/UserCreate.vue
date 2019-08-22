@@ -86,6 +86,7 @@
                 if(this.pass===this.password_confirmation){
                     app.user.password = app.pass;
                     newUser = app.user;
+                    alert(newUser);
                 }
 
                 axios.post('/api/v1/users', newUser)

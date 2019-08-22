@@ -2,7 +2,7 @@
     <div class="card-body">
 
         <div class="card-description row">
-            <router-link tag="button" :to="{name: 'indexLesson'}" type="button"
+            <router-link tag="button" :to="{name: 'indexLesson',params: {id:courseId}}" type="button"
                          class="btn btn-outline-secondary btn-rounded btn-icon">
                 <i class="mdi mdi-arrow-left"></i>
             </router-link>
@@ -40,11 +40,12 @@
     export default {
         mounted() {
             let app = this;
-            let id = app.$route.params.id;
+            let id = app.$route.params.lesson_id;
             app.lessonId = id;
-            axios.get('/api/v1/lessons/' + id)
+            app.courseId = app.$route.params.course_id;
+            axios.get('/api/v1/lessonsShow/' + id)
                 .then(function (resp) {
-                    app.company = resp.data;
+                    app.lesson = resp.data;
                 })
                 .catch(function () {
                     alert("Could not load your lesson")
@@ -53,6 +54,7 @@
         data: function () {
             return {
                 lessonId: null,
+                courseId:null,
                 lesson:{
                     title:'',
                     description:'',
@@ -71,7 +73,7 @@
                 var newLesson = app.lesson;
                 axios.patch('/api/v1/lessons/' + app.lessonId, newLesson )
                     .then(function (resp) {
-                        app.$router.push({name: 'indexLesson'});
+                        app.$router.push({name: 'indexLesson',params: {id:app.courseId}});
 
                     })
                     .catch(function (resp) {

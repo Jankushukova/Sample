@@ -2,7 +2,7 @@
     <div class="card-body">
 
         <div class="card-description row">
-            <router-link tag="button" :to="{name: 'indexMaterial'}" type="button"
+            <router-link tag="button" :to="{name: 'indexMaterial', params: {lesson_id: material.lesson_id,course_id:courseId}}" type="button"
                          class="btn btn-outline-secondary btn-rounded btn-icon">
                 <i class="mdi mdi-arrow-left"></i>
             </router-link>
@@ -44,6 +44,11 @@
 
 <script>
     export default {
+        mounted() {
+            var app = this;
+            app.courseId = app.$route.params.course_id;
+            app.material.lesson_id = app.$route.params.lesson_id;
+        },
         data: function () {
             return {
                 material: {
@@ -54,6 +59,7 @@
                     material_type_id:null,
                 },
                 typeofmaterial:"",
+                courseId:null,
 
             }
         },
@@ -68,7 +74,6 @@
                     case "Theory": app.material.material_type_id=3;break;
 
                 }
-                app.material.lesson_id = app.$route.params.id;
 
                 var newLesson = app.material;
                 axios.post('/api/v1/materials', newLesson)

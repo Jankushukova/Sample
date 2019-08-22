@@ -10,7 +10,7 @@
                 <i class="mdi mdi-arrow-left"></i>
             </router-link>
 
-            <router-link tag="button" :to="{name: 'createLesson'}" type="button"
+            <router-link tag="button" :to="{name: 'createLesson',params:{course_id:courseId}}" type="button"
                          class="btn btn-outline-secondary btn-rounded btn-icon">
                 <i class="mdi mdi-plus"></i>
             </router-link>
@@ -26,7 +26,7 @@
                         </p>
 
                         <p class="text-right">
-                            <router-link tag="button" :to="{name: 'indexMaterial', params: {id: lesson.id}}"
+                            <router-link tag="button" :to="{name: 'indexMaterial', params: {lesson_id: lesson.id,course_id:courseId}}"
                                          type="button"
                                          class="btn  btn-outline-light btn-rounded btn-icon bg-bitlab">
                                 <i class="fab fa-readme"></i>
@@ -44,7 +44,7 @@
                             <div class="col-lg-6">
                                 <p class="text-right">
                                     <router-link tag="button" class="btn btn-icon"
-                                                 :to="{name: 'editLesson', params: {id: lesson.id}}">
+                                                 :to="{name: 'editLesson',params: {lesson_id: lesson.id,course_id:courseId}}">
                                         <i class="mdi mdi-border-color "></i>
                                     </router-link>
 
@@ -80,10 +80,11 @@
         mounted() {
             let app = this;
             let id = app.id;
-            app.courseId = app.$route.params.id;
-            axios.get('/api/v1/lessons')
+            app.courseId = app.$route.params.course_id;
+            axios.get('/api/v1/lessons/' + app.courseId)
                 .then(function (resp) {
                     app.lessons = resp.data;
+
                 })
                 .catch(function (resp) {
                     console.log(resp);
@@ -101,17 +102,16 @@
         },
         methods: {
             deleteEntry(id, index) {
+                var app = this;
                 bootbox.confirm("Do you really want to delete it?", function(result){
                     if(result){
-                    var app = this;
-                    axios.delete('/api/v1/lessons/' + id)
-                        .then(function (resp) {
-                            app.lessons.splice(index, 1);
-                        })
-                        .catch(function (resp) {
-                            bootbox.alert("Could not delete lesson");
-
-                        });
+                        axios.delete('/api/v1/lessons/' + id)
+                            .then(function (resp) {
+                                app.lessons.splice(index, 1);
+                            })
+                            .catch(function (resp) {
+                                bootbox.alert("Could not delete lesson");
+                            });
                     }
                 });
             },

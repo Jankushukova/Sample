@@ -10,9 +10,10 @@ use Illuminate\Http\Request;
 
 class MaterialsController extends Controller
 {
-    public function index()
+    public function index($id)
     {
-        return Material::all();
+        return Material::where('lesson_id', $id)->get();
+
     }
 
     /**
