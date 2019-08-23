@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid">
         <div class="card-header bg-bitlab">
-            <i class="fas fa-users-class menu-icon text-white"></i>
+            <i class="mdi mdi-buffer menu-icon text-white"></i>
 
         </div>
         <div class="card">

@@ -2,7 +2,7 @@
     <div class="card-body">
 
         <div class="card-description row">
-            <router-link tag="button" :to="{name: 'indexLesson',params: {id:courseId}}" type="button"
+            <router-link tag="button" :to="{name: 'indexLesson',params: {id:lesson.course_id}}" type="button"
                          class="btn btn-outline-secondary btn-rounded btn-icon">
                 <i class="mdi mdi-arrow-left"></i>
             </router-link>
@@ -40,25 +40,24 @@
     export default {
         mounted() {
             let app = this;
-            let id = app.$route.params.lesson_id;
-            app.lessonId = id;
-            app.courseId = app.$route.params.course_id;
-            axios.get('/api/v1/lessonsShow/' + id)
+            app.lesson.id = app.$route.params.lesson_id;
+            axios.get('/api/v1/lessonsShow/' + app.lesson.id)
                 .then(function (resp) {
                     app.lesson = resp.data;
                 })
                 .catch(function () {
                     alert("Could not load your lesson")
                 });
+
         },
         data: function () {
             return {
-                lessonId: null,
-                courseId:null,
                 lesson:{
+                    id:null,
                     title:'',
                     description:'',
                     lesson_order:null,
+                    course_id:null,
                 }
             }
         },
@@ -71,9 +70,9 @@
                 event.preventDefault();
                 var app = this;
                 var newLesson = app.lesson;
-                axios.patch('/api/v1/lessons/' + app.lessonId, newLesson )
+                axios.patch('/api/v1/lessons/' + app.lesson.id, newLesson )
                     .then(function (resp) {
-                        app.$router.push({name: 'indexLesson',params: {id:app.courseId}});
+                        app.$router.push({name: 'indexLesson',params: {course_id:app.lesson.course_id}});
 
                     })
                     .catch(function (resp) {

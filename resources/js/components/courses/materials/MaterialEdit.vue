@@ -2,7 +2,7 @@
     <div class="card-body">
 
         <div class="card-description row">
-            <router-link tag="button" :to="{name: 'indexMaterial', params: {lesson_id: lessonId,course_id:courseId}}" type="button"
+            <router-link tag="button" :to="{name: 'indexMaterial', params: {lesson_id: material.lesson_id}}" type="button"
                          class="btn btn-outline-secondary btn-rounded btn-icon">
                 <i class="mdi mdi-arrow-left"></i>
             </router-link>
@@ -25,8 +25,8 @@
                    v-model="material.material_order">
         </div>
         <div >
-            <input type="radio" id="lec" value="Lection" v-model="typeofmaterial">
-            <label for="lec">Lection</label>
+            <input type="radio" id="lec" value="Lecture" v-model="typeofmaterial">
+            <label for="lec">Lecture</label>
             <input type="radio" id="prac" value="Practice" v-model="typeofmaterial">
             <label for="prac">Practice</label>
             <input type="radio" id="theo" value="Theory" v-model="typeofmaterial">
@@ -47,29 +47,27 @@
     export default {
         mounted() {
             let app = this;
-            let id = app.$route.params.material_id;
-            app.materialId = id;
-            app.courseId = app.$route.params.course_id;
-            app.lessonId = app.$route.params.lesson_id;
+            app.material.id = app.$route.params.material_id;
 
-            axios.get('/api/v1/materialsShow/' + id)
+
+            axios.get('/api/v1/materialsShow/' + app.material.id)
                 .then(function (resp) {
                     app.material = resp.data;
                 })
                 .catch(function () {
-                    alert("Could not load your lesson")
+                    alert("Could not load your material")
                 });
+
         },
         data: function () {
             return {
-                materialId:null,
-                lessonId:null,
-                courseId:null,
                 material:{
+                    id:null,
                     title:'',
                     content:'',
                     material_order:'',
                     material_type_id:'',
+                    lesson_id:null,
                 },
                 typeofmaterial:"",
 
@@ -84,15 +82,15 @@
                 event.preventDefault();
                 var app = this;
                 switch (this.typeofmaterial) {
-                    case "Lection": app.material.material_type_id=1;break;
+                    case "Lecture": app.material.material_type_id=1;break;
                     case "Practice": app.material.material_type_id=2;break;
                     case "Theory": app.material.material_type_id=3;break;
 
                 }
                 var newMaterial = app.material;
-                axios.patch('/api/v1/materials/' + app.materialId, newMaterial)
+                axios.patch('/api/v1/materials/' + app.material.id, newMaterial)
                     .then(function (resp) {
-                        app.$router.push({name: 'indexMaterial', params: {lesson_id: app.lessonId,course_id:app.courseId}});
+                        app.$router.push({name: 'indexMaterial', params: {lesson_id: app.material.lesson_id}});
 
                     })
                     .catch(function (resp) {

@@ -2351,10 +2351,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     var app = this;
-    var id = app.$route.params.lesson_id;
-    app.lessonId = id;
-    app.courseId = app.$route.params.course_id;
-    axios.get('/api/v1/lessonsShow/' + id).then(function (resp) {
+    app.lesson.id = app.$route.params.lesson_id;
+    axios.get('/api/v1/lessonsShow/' + app.lesson.id).then(function (resp) {
       app.lesson = resp.data;
     })["catch"](function () {
       alert("Could not load your lesson");
@@ -2362,12 +2360,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      lessonId: null,
-      courseId: null,
       lesson: {
+        id: null,
         title: '',
         description: '',
-        lesson_order: null
+        lesson_order: null,
+        course_id: null
       }
     };
   },
@@ -2376,11 +2374,11 @@ __webpack_require__.r(__webpack_exports__);
       event.preventDefault();
       var app = this;
       var newLesson = app.lesson;
-      axios.patch('/api/v1/lessons/' + app.lessonId, newLesson).then(function (resp) {
+      axios.patch('/api/v1/lessons/' + app.lesson.id, newLesson).then(function (resp) {
         app.$router.push({
           name: 'indexLesson',
           params: {
-            id: app.courseId
+            course_id: app.lesson.course_id
           }
         });
       })["catch"](function (resp) {
@@ -2569,8 +2567,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     var app = this;
-    app.courseId = app.$route.params.course_id;
     app.material.lesson_id = app.$route.params.lesson_id;
+    axios.get('/api/v1/lessonsShow/' + app.material.lesson_id).then(function (resp) {
+      app.courseId = resp.data.course_id;
+    })["catch"](function (resp) {
+      console.log(resp);
+      bootbox.alert("Could not load lesson");
+    });
   },
   data: function data() {
     return {
@@ -2591,7 +2594,7 @@ __webpack_require__.r(__webpack_exports__);
       var app = this;
 
       switch (this.typeofmaterial) {
-        case "Lection":
+        case "Lecture":
           app.material.material_type_id = 1;
           break;
 
@@ -2607,7 +2610,10 @@ __webpack_require__.r(__webpack_exports__);
       var newLesson = app.material;
       axios.post('/api/v1/materials', newLesson).then(function (resp) {
         app.$router.push({
-          name: 'indexMaterial'
+          name: 'indexMaterial',
+          params: {
+            lesson_id: app.material.lesson_id
+          }
         });
       })["catch"](function (resp) {
         console.log(resp);
@@ -2676,26 +2682,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     var app = this;
-    var id = app.$route.params.material_id;
-    app.materialId = id;
-    app.courseId = app.$route.params.course_id;
-    app.lessonId = app.$route.params.lesson_id;
-    axios.get('/api/v1/materialsShow/' + id).then(function (resp) {
+    app.material.id = app.$route.params.material_id;
+    axios.get('/api/v1/materialsShow/' + app.material.id).then(function (resp) {
       app.material = resp.data;
     })["catch"](function () {
-      alert("Could not load your lesson");
+      alert("Could not load your material");
     });
   },
   data: function data() {
     return {
-      materialId: null,
-      lessonId: null,
-      courseId: null,
       material: {
+        id: null,
         title: '',
         content: '',
         material_order: '',
-        material_type_id: ''
+        material_type_id: '',
+        lesson_id: null
       },
       typeofmaterial: ""
     };
@@ -2706,7 +2708,7 @@ __webpack_require__.r(__webpack_exports__);
       var app = this;
 
       switch (this.typeofmaterial) {
-        case "Lection":
+        case "Lecture":
           app.material.material_type_id = 1;
           break;
 
@@ -2720,12 +2722,11 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       var newMaterial = app.material;
-      axios.patch('/api/v1/materials/' + app.materialId, newMaterial).then(function (resp) {
+      axios.patch('/api/v1/materials/' + app.material.id, newMaterial).then(function (resp) {
         app.$router.push({
           name: 'indexMaterial',
           params: {
-            lesson_id: app.lessonId,
-            course_id: app.courseId
+            lesson_id: app.material.lesson_id
           }
         });
       })["catch"](function (resp) {
@@ -2822,12 +2823,17 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var app = this;
     app.lessonId = app.$route.params.lesson_id;
-    app.courseId = app.$route.params.course_id;
     axios.get('/api/v1/materials/' + app.lessonId).then(function (resp) {
       app.materials = resp.data;
     })["catch"](function (resp) {
       console.log(resp);
       bootbox.alert("Could not load material");
+    });
+    axios.get('/api/v1/lessonsShow/' + app.lessonId).then(function (resp) {
+      app.courseId = resp.data.course_id;
+    })["catch"](function (resp) {
+      console.log(resp);
+      bootbox.alert("Could not load lesson");
     });
   },
   methods: {
@@ -8337,6 +8343,25 @@ __webpack_require__.r(__webpack_exports__);
 
 }));
 //# sourceMappingURL=bootstrap.js.map
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/accesses/AccessesWrapper.vue?vue&type=style&index=0&id=17c8e562&scoped=true&lang=css&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/accesses/AccessesWrapper.vue?vue&type=style&index=0&id=17c8e562&scoped=true&lang=css& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\ni[data-v-17c8e562] {\n    display: inline-block;\n    font-size: 20px;\n    width: 40px;\n    text-align: left;\n    color: #4d83ff;\n    cursor: pointer;\n}\n.card .card-title[data-v-17c8e562] {\n    color: #4a4a4a;\n    margin-bottom: 1.5rem;\n    text-transform: uppercase;\n    font-size: .875rem;\n    font-weight: bold;\n}\n.card[data-v-17c8e562] {\n    position: relative;\n    display: flex;\n    flex-direction: column;\n    min-width: 0;\n    word-wrap: break-word;\n    background-color: #fff;\n    background-clip: border-box;\n    border: 1px solid #e7eaed;\n    border-radius: 0;\n}\n.card .card-body[data-v-17c8e562] {\n    padding: 1.5rem 1.875rem;\n    flex: 1 1 auto;\n}\ndiv[data-v-17c8e562] {\n    display: block;\n}\nbody[data-v-17c8e562] {\n    font-size: 1rem;\n    font-family: \"Roboto\", sans-serif;\n    font-weight: initial;\n    line-height: normal;\n    -webkit-font-smoothing: antialiased;\n    text-align: left;\n    background-color: #fff;\n}\np[data-v-17c8e562] {\n    font-size: 0.875rem;\n    line-height: 1.3rem;\n}\na[data-v-17c8e562], div[data-v-17c8e562], h1[data-v-17c8e562], h2[data-v-17c8e562], h3[data-v-17c8e562], h4[data-v-17c8e562], h5[data-v-17c8e562], p[data-v-17c8e562], span[data-v-17c8e562] {\n    text-shadow: none;\n}\np[data-v-17c8e562] {\n    margin-top: 0;\n}\n*[data-v-17c8e562], *[data-v-17c8e562]::before, *[data-v-17c8e562]::after {\n    box-sizing: border-box;\n}\np[data-v-17c8e562] {\n    display: block;\n    -webkit-margin-before: 1em;\n            margin-block-start: 1em;\n    -webkit-margin-after: 1em;\n            margin-block-end: 1em;\n    -webkit-margin-start: 0px;\n            margin-inline-start: 0px;\n    -webkit-margin-end: 0px;\n            margin-inline-end: 0px;\n}\n", ""]);
+
+// exports
 
 
 /***/ }),
@@ -39298,6 +39323,36 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/accesses/AccessesWrapper.vue?vue&type=style&index=0&id=17c8e562&scoped=true&lang=css&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/accesses/AccessesWrapper.vue?vue&type=style&index=0&id=17c8e562&scoped=true&lang=css& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./AccessesWrapper.vue?vue&type=style&index=0&id=17c8e562&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/accesses/AccessesWrapper.vue?vue&type=style&index=0&id=17c8e562&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/accesses/teachers/TeacherIndex.vue?vue&type=style&index=0&id=450c85fc&scoped=true&lang=css&":
 /*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/accesses/teachers/TeacherIndex.vue?vue&type=style&index=0&id=450c85fc&scoped=true&lang=css& ***!
@@ -40419,7 +40474,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("td", [
-      _c("a", { staticClass: "btn btn-outline-dark " }, [
+      _c("a", { staticClass: "btn btn-outline-dark  " }, [
         _c("i", { staticClass: "fal fa-lock fa-2x" })
       ])
     ])
@@ -41102,7 +41157,7 @@ var render = function() {
             staticClass: "btn btn-outline-secondary btn-rounded btn-icon",
             attrs: {
               tag: "button",
-              to: { name: "indexLesson", params: { id: _vm.courseId } },
+              to: { name: "indexLesson", params: { id: _vm.lesson.course_id } },
               type: "button"
             }
           },
@@ -41303,10 +41358,7 @@ var render = function() {
                         tag: "button",
                         to: {
                           name: "indexMaterial",
-                          params: {
-                            lesson_id: lesson.id,
-                            course_id: _vm.courseId
-                          }
+                          params: { lesson_id: lesson.id }
                         },
                         type: "button"
                       }
@@ -41343,10 +41395,7 @@ var render = function() {
                             tag: "button",
                             to: {
                               name: "editLesson",
-                              params: {
-                                lesson_id: lesson.id,
-                                course_id: _vm.courseId
-                              }
+                              params: { lesson_id: lesson.id }
                             }
                           }
                         },
@@ -41411,10 +41460,7 @@ var render = function() {
               tag: "button",
               to: {
                 name: "indexMaterial",
-                params: {
-                  lesson_id: _vm.material.lesson_id,
-                  course_id: _vm.courseId
-                }
+                params: { lesson_id: _vm.material.lesson_id }
               },
               type: "button"
             }
@@ -41516,16 +41562,16 @@ var render = function() {
             expression: "typeofmaterial"
           }
         ],
-        attrs: { type: "radio", id: "lec", value: "Lection" },
-        domProps: { checked: _vm._q(_vm.typeofmaterial, "Lection") },
+        attrs: { type: "radio", id: "lec", value: "Lecture" },
+        domProps: { checked: _vm._q(_vm.typeofmaterial, "Lecture") },
         on: {
           change: function($event) {
-            _vm.typeofmaterial = "Lection"
+            _vm.typeofmaterial = "Lecture"
           }
         }
       }),
       _vm._v(" "),
-      _c("label", { attrs: { for: "lec" } }, [_vm._v("Lection")]),
+      _c("label", { attrs: { for: "lec" } }, [_vm._v("Lecture")]),
       _vm._v(" "),
       _c("input", {
         directives: [
@@ -41615,7 +41661,7 @@ var render = function() {
               tag: "button",
               to: {
                 name: "indexMaterial",
-                params: { lesson_id: _vm.lessonId, course_id: _vm.courseId }
+                params: { lesson_id: _vm.material.lesson_id }
               },
               type: "button"
             }
@@ -41717,16 +41763,16 @@ var render = function() {
             expression: "typeofmaterial"
           }
         ],
-        attrs: { type: "radio", id: "lec", value: "Lection" },
-        domProps: { checked: _vm._q(_vm.typeofmaterial, "Lection") },
+        attrs: { type: "radio", id: "lec", value: "Lecture" },
+        domProps: { checked: _vm._q(_vm.typeofmaterial, "Lecture") },
         on: {
           change: function($event) {
-            _vm.typeofmaterial = "Lection"
+            _vm.typeofmaterial = "Lecture"
           }
         }
       }),
       _vm._v(" "),
-      _c("label", { attrs: { for: "lec" } }, [_vm._v("Lection")]),
+      _c("label", { attrs: { for: "lec" } }, [_vm._v("Lecture")]),
       _vm._v(" "),
       _c("input", {
         directives: [
@@ -41814,7 +41860,7 @@ var render = function() {
             staticClass: "btn btn-outline-secondary btn-rounded btn-icon mr-2",
             attrs: {
               tag: "button",
-              to: { name: "indexLesson", params: { id: _vm.courseId } },
+              to: { name: "indexLesson", params: { course_id: _vm.courseId } },
               type: "button"
             }
           },
@@ -41829,7 +41875,7 @@ var render = function() {
               tag: "button",
               to: {
                 name: "createMaterial",
-                params: { lesson_id: _vm.lessonId, course_id: _vm.courseId }
+                params: { lesson_id: _vm.lessonId }
               },
               type: "button"
             }
@@ -41853,7 +41899,7 @@ var render = function() {
               _vm._v(" "),
               _c("p", { staticClass: "card-description" }, [
                 material.material_type_id === 1
-                  ? _c("i", [_vm._v("Lection")])
+                  ? _c("i", [_vm._v("Lecture")])
                   : material.material_type_id === 2
                   ? _c("i", [_vm._v("Practice")])
                   : material.material_type_id === 3
@@ -41874,11 +41920,7 @@ var render = function() {
                         tag: "button",
                         to: {
                           name: "editMaterial",
-                          params: {
-                            material_id: material.id,
-                            lesson_id: _vm.lessonId,
-                            course_id: _vm.courseId
-                          }
+                          params: { material_id: material.id }
                         },
                         type: "button"
                       }
@@ -42185,7 +42227,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header bg-bitlab" }, [
-      _c("i", { staticClass: "fas fa-users-class menu-icon text-white" })
+      _c("i", { staticClass: "mdi mdi-buffer menu-icon text-white" })
     ])
   }
 ]
@@ -43228,9 +43270,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header bg-bitlab" }, [
-      _c("i", {
-        staticClass: "mdi mdi-account-multiple-outline menu-icon text-white"
-      })
+      _c("i", { staticClass: "mdi mdi-account-multiple menu-icon text-white" })
     ])
   }
 ]
@@ -58636,19 +58676,19 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       component: _components_courses_lessons_LessonCreate__WEBPACK_IMPORTED_MODULE_12__["default"],
       name: 'createLesson'
     }, {
-      path: '/admin/courses/lesson/edit:lesson_id/:course_id',
+      path: '/admin/courses/lesson/edit:lesson_id',
       component: _components_courses_lessons_LessonEdit__WEBPACK_IMPORTED_MODULE_11__["default"],
       name: 'editLesson'
     }, {
-      path: '/admin/courses/lesson/material:lesson_id/:course_id',
+      path: '/admin/courses/lesson/material:lesson_id',
       component: _components_courses_materials_MaterialIndex__WEBPACK_IMPORTED_MODULE_13__["default"],
       name: 'indexMaterial'
     }, {
-      path: '/admin/courses/lesson/material/create:lesson_id/:course_id',
+      path: '/admin/courses/lesson/material/create:lesson_id',
       component: _components_courses_materials_MaterialCreate__WEBPACK_IMPORTED_MODULE_14__["default"],
       name: 'createMaterial'
     }, {
-      path: '/admin/courses/lesson/material/edit:material_id/:lesson_id/:course_id',
+      path: '/admin/courses/lesson/material/edit:material_id',
       component: _components_courses_materials_MaterialEdit__WEBPACK_IMPORTED_MODULE_15__["default"],
       name: 'editMaterial'
     }]
@@ -58942,7 +58982,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AccessesWrapper_vue_vue_type_template_id_17c8e562_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AccessesWrapper.vue?vue&type=template&id=17c8e562&scoped=true& */ "./resources/js/components/accesses/AccessesWrapper.vue?vue&type=template&id=17c8e562&scoped=true&");
 /* harmony import */ var _AccessesWrapper_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AccessesWrapper.vue?vue&type=script&lang=js& */ "./resources/js/components/accesses/AccessesWrapper.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _AccessesWrapper_vue_vue_type_style_index_0_id_17c8e562_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AccessesWrapper.vue?vue&type=style&index=0&id=17c8e562&scoped=true&lang=css& */ "./resources/js/components/accesses/AccessesWrapper.vue?vue&type=style&index=0&id=17c8e562&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -58950,7 +58992,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _AccessesWrapper_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _AccessesWrapper_vue_vue_type_template_id_17c8e562_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
   _AccessesWrapper_vue_vue_type_template_id_17c8e562_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -58979,6 +59021,22 @@ component.options.__file = "resources/js/components/accesses/AccessesWrapper.vue
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccessesWrapper_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./AccessesWrapper.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/accesses/AccessesWrapper.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccessesWrapper_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/accesses/AccessesWrapper.vue?vue&type=style&index=0&id=17c8e562&scoped=true&lang=css&":
+/*!***********************************************************************************************************************!*\
+  !*** ./resources/js/components/accesses/AccessesWrapper.vue?vue&type=style&index=0&id=17c8e562&scoped=true&lang=css& ***!
+  \***********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_AccessesWrapper_vue_vue_type_style_index_0_id_17c8e562_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./AccessesWrapper.vue?vue&type=style&index=0&id=17c8e562&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/accesses/AccessesWrapper.vue?vue&type=style&index=0&id=17c8e562&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_AccessesWrapper_vue_vue_type_style_index_0_id_17c8e562_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_AccessesWrapper_vue_vue_type_style_index_0_id_17c8e562_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_AccessesWrapper_vue_vue_type_style_index_0_id_17c8e562_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_AccessesWrapper_vue_vue_type_style_index_0_id_17c8e562_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_AccessesWrapper_vue_vue_type_style_index_0_id_17c8e562_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 

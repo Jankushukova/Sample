@@ -26,7 +26,7 @@
                         </p>
 
                         <p class="text-right">
-                            <router-link tag="button" :to="{name: 'indexMaterial', params: {lesson_id: lesson.id,course_id:courseId}}"
+                            <router-link tag="button" :to="{name: 'indexMaterial', params: {lesson_id: lesson.id}}"
                                          type="button"
                                          class="btn  btn-outline-light btn-rounded btn-icon bg-bitlab">
                                 <i class="fab fa-readme"></i>
@@ -44,7 +44,7 @@
                             <div class="col-lg-6">
                                 <p class="text-right">
                                     <router-link tag="button" class="btn btn-icon"
-                                                 :to="{name: 'editLesson',params: {lesson_id: lesson.id,course_id:courseId}}">
+                                                 :to="{name: 'editLesson',params: {lesson_id: lesson.id}}">
                                         <i class="mdi mdi-border-color "></i>
                                     </router-link>
 

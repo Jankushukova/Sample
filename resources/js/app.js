@@ -88,22 +88,22 @@ const router = new VueRouter({
                     component: LessonsCreate,
                     name: 'createLesson'
                 },{
-                    path: '/admin/courses/lesson/edit:lesson_id/:course_id',
+                    path: '/admin/courses/lesson/edit:lesson_id',
                     component: LessonsEdit,
                     name: 'editLesson'
                 },
                 {
-                    path: '/admin/courses/lesson/material:lesson_id/:course_id',
+                    path: '/admin/courses/lesson/material:lesson_id',
                     component: MaterialIndex,
                     name: 'indexMaterial'
                 },
                 {
-                    path: '/admin/courses/lesson/material/create:lesson_id/:course_id',
+                    path: '/admin/courses/lesson/material/create:lesson_id',
                     component: MaterialCreate,
                     name: 'createMaterial'
                 },
                 {
-                    path: '/admin/courses/lesson/material/edit:material_id/:lesson_id/:course_id',
+                    path: '/admin/courses/lesson/material/edit:material_id',
                     component: MaterialEdit,
                     name: 'editMaterial'
                 },

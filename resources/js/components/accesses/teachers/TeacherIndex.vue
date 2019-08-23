@@ -38,7 +38,7 @@
                         {{user.phone_number}}
                     </td>
                     <td>
-                        <a class="btn btn-outline-dark ">
+                        <a class="btn btn-outline-dark  ">
                             <i class="fal fa-lock fa-2x"></i>
                         </a>
                     </td>
