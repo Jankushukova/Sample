@@ -29,7 +29,6 @@
 <body>
 @yield('overallContent')
 
-<script src="{{asset('js/app.js')}}"></script>
 <script src="{{asset('front/vendors/base/vendor.bundle.base.js')}}"></script>
 
 <!-- Plugin js for this page-->

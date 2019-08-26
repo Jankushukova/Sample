@@ -44,6 +44,7 @@ import UserStudentIndex from "./components/users/student/UserStudentIndex";
 import AccessIndex from "./components/accesses/AccessIndex";
 import StudentIndex from "./components/accesses/students/StudentIndex";
 import TeacherIndex from "./components/accesses/teachers/TeacherIndex";
+import TeacherAccessCreate from "./components/accesses/teachers/TeacherAccessCreate";
 
 //groups
 import GroupIndex from "./components/groups/GroupIndex";
@@ -194,6 +195,13 @@ const router = new VueRouter({
                     component: StudentIndex,
                     name: 'studentAccessIndex'
                 },
+
+                {
+                    path: '/admin/accesses/teachers/:teacher_id',
+                    component: TeacherAccessCreate,
+                    name: 'teacherAccessCreate'
+                },
+
                 {
                     path: '/admin/accesses/teachers',
                     component: TeacherIndex,

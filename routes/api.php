@@ -49,8 +49,6 @@ Route::group([
         Route::patch('materials/{id}', ['uses' => 'MaterialsController@update', 'as' => 'materials.update.patch'])->where('id', '[0-9]+');
 
 
-
-
         //users
         Route::get('/users/teachers', ['uses' => 'UsersController@getTeachers', 'as' => 'users.teachers']);
         Route::get('/users/students', ['uses' => 'UsersController@getStudents', 'as' => 'users.students']);
@@ -80,6 +78,9 @@ Route::group([
         Route::delete('groupsStudents/{id}', ['uses' => 'GroupsStudentsController@destroy', 'as' => 'groupsStudents.destroy'])->where('id', '[0-9]+');
         Route::put('groupsStudents/{id}', ['uses' => 'GroupsStudentsController@update', 'as' => 'groupsStudents.update.put'])->where('id', '[0-9]+');
         Route::patch('groupsStudents/{id}', ['uses' => 'GroupsStudentsController@update', 'as' => 'groupsStudents.update.patch'])->where('id', '[0-9]+');
+
+        Route::get('teacher/access/courses/{user_id}', ['uses' => 'TeacherAccessController@getMyAvailableCourses', 'as' => 'teacher.access.index']);
+        Route::get('teacher/access/except/courses/{user_id}', ['uses' => 'TeacherAccessController@getMyNotAvailableCourses', 'as' => 'teacher.access.index']);
 
     });
 

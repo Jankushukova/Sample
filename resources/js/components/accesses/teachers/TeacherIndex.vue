@@ -38,7 +38,7 @@
                         {{user.phone_number}}
                     </td>
                     <td>
-                        <a class="btn btn-outline-dark  ">
+                        <a v-on:click="openModal(user)" class="btn btn-outline-dark ">
                             <i class="fal fa-lock fa-2x"></i>
                         </a>
                     </td>
@@ -46,16 +46,19 @@
                 </tbody>
             </table>
         </div>
-
+        <access-modal></access-modal>
     </div>
 </template>
 
 <script>
 
+    import AccessModal from "./AccessModal";
+
     export default {
+        components: {AccessModal},
         data: function () {
             return {
-                users: []
+                users: [],
             }
         },
         mounted: function () {
@@ -69,8 +72,10 @@
                     bootbox.alert("Could not load teachers");
                 });
         },
-        methods: function () {
-
+        methods: {
+            openModal: function(user) {
+                this.$emit('sendUser', user);
+            }
         }
     }
 </script>
