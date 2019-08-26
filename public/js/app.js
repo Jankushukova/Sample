@@ -1858,17 +1858,60 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AccessModal",
   data: function data() {
     return {
-      user: null
+      user: {},
+      courses: [],
+      searchStr: ''
     };
   },
+  mounted: function mounted() {},
   methods: {
     showModal: function showModal(user) {
       this.user = user;
-      $('#accessModal').modal('show');
+      var app = this;
+      axios.get('/api/v1/teacher/access/courses/' + this.user.id).then(function (coursesResp) {
+        app.courses = coursesResp.data;
+        $('#accessModal').modal('show');
+      });
+    },
+    closeModal: function closeModal() {
+      this.user = {};
+      this.searchStr = '';
+      this.courses = [];
+      $('#accessModal').modal('hide');
+    },
+    removeCourse: function removeCourse(course) {
+      this.courses = this.courses.filter(function (e) {
+        return e.id != course.id;
+      });
     }
   },
   created: function created() {
@@ -40366,89 +40409,192 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.user
-    ? _c(
+  return _c(
+    "div",
+    {
+      staticClass: "modal fade bd-example-modal-xl",
+      attrs: {
+        id: "accessModal",
+        "data-backdrop": "static",
+        "data-keyboard": "false"
+      }
+    },
+    [
+      _c(
         "div",
-        {
-          staticClass: "modal fade",
-          attrs: {
-            id: "accessModal",
-            tabindex: "-1",
-            role: "dialog",
-            "aria-labelledby": "exampleModalLabel",
-            "aria-hidden": "true"
-          }
-        },
+        { staticClass: "modal-dialog modal-xl", attrs: { role: "document" } },
         [
-          _c(
-            "div",
-            { staticClass: "modal-dialog", attrs: { role: "document" } },
-            [
-              _c("div", { staticClass: "modal-content" }, [
-                _vm._m(0),
-                _vm._v(" "),
-                _c("div", { staticClass: "modal-body" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("div", { staticClass: "modal-header" }, [
+              _c(
+                "h5",
+                {
+                  staticClass: "modal-title",
+                  attrs: { id: "exampleModalLabel" }
+                },
+                [
                   _vm._v(
-                    "\n                " +
-                      _vm._s(_vm.user.first_name) +
-                      "\n            "
+                    _vm._s(_vm.user.first_name + " " + _vm.user.last_name) +
+                      "\n                    accesses"
                   )
-                ]),
-                _vm._v(" "),
-                _vm._m(1)
-              ])
-            ]
-          )
+                ]
+              ),
+              _vm._v(" "),
+              _vm._m(0)
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c("form", [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.searchStr,
+                      expression: "searchStr"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "search",
+                    placeholder: "Search",
+                    "aria-label": "Search"
+                  },
+                  domProps: { value: _vm.searchStr },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.searchStr = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "my-1 p-3 bg-white rounded shadow-sm" },
+                [
+                  _vm._l(_vm.courses, function(course, index) {
+                    return _c("div", { staticClass: "media text-muted pt-3" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "media-body pb-3 mb-0 small lh-125 border-bottom border-gray"
+                        },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "d-flex justify-content-between align-items-center w-100"
+                            },
+                            [
+                              _c("strong", {
+                                staticClass: "text-gray-dark",
+                                domProps: { textContent: _vm._s(course.title) }
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "a",
+                                {
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.removeCourse(course)
+                                    }
+                                  }
+                                },
+                                [_vm._v("Убрать")]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    ])
+                  }),
+                  _vm._v(" "),
+                  _vm.courses.length == 0
+                    ? _c("div", { staticClass: "media text-muted pt-3" }, [
+                        _vm._m(1)
+                      ])
+                    : _vm._e()
+                ],
+                2
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-secondary",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeModal()
+                    }
+                  }
+                },
+                [_vm._v("Close")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                { staticClass: "btn btn-primary", attrs: { type: "button" } },
+                [_vm._v("Save changes")]
+              )
+            ])
+          ])
         ]
       )
-    : _vm._e()
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c(
-        "h5",
-        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [_vm._v("Modal title")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          }
-        },
-        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
-    ])
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-secondary",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("Close")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-primary", attrs: { type: "button" } },
-        [_vm._v("Save changes")]
-      )
-    ])
+    return _c(
+      "div",
+      {
+        staticClass:
+          "media-body pb-3 mb-0 small lh-125 border-bottom border-gray"
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass:
+              "d-flex justify-content-between align-items-center w-100"
+          },
+          [
+            _c("strong", { staticClass: "text-danger text-center" }, [
+              _vm._v("Нет данных")
+            ])
+          ]
+        )
+      ]
+    )
   }
 ]
 render._withStripped = true
