@@ -49,9 +49,9 @@ import TeacherIndex from "./components/accesses/teachers/TeacherIndex";
 import GroupIndex from "./components/groups/GroupIndex";
 import GroupCreate from "./components/groups/GroupCreate";
 import GroupTeacherIndex from "./components/groups/teacher/GroupTeacherIndex";
-import GroupStudentIndex from "./components/groups/student/GroupStudentIndex";
+// import GroupStudentIndex from "./components/groups/student/GroupStudentIndex";
 import GroupTeacherCreate from "./components/groups/teacher/GroupTeacherCreate";
-import GroupStudentCreate from "./components/groups/student/GroupStudentCreate";
+// import GroupStudentCreate from "./components/groups/student/GroupStudentCreate";
 import UserEdit from "./components/users/UserEdit";
 
 
@@ -134,16 +134,16 @@ const router = new VueRouter({
                     component: GroupTeacherCreate,
                     name: 'createGroupTeachers'
                 },
-                {
-                    path: '/admin/groups/students:group_id',
-                    component: GroupStudentIndex,
-                    name: 'indexGroupStudents'
-                },
-                {
-                    path: '/admin/groups/students/create:group_id',
-                    component: GroupStudentCreate,
-                    name: 'createGroupStudents'
-                },
+                // {
+                //     path: '/admin/groups/students:group_id',
+                //     component: GroupStudentIndex,
+                //     name: 'indexGroupStudents'
+                // },
+                // {
+                //     path: '/admin/groups/students/create:group_id',
+                //     component: GroupStudentCreate,
+                //     name: 'createGroupStudents'
+                // },
 
 
             ],
@@ -206,7 +206,7 @@ const router = new VueRouter({
             ]
         },
     ]
-})
+});
 
 const main = new Vue({ router }).$mount('#app');
 

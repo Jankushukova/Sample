@@ -68,6 +68,9 @@
                     console.log(resp);
                     bootbox.alert("Could not load teachers");
                 });
+        },
+        methods: function () {
+
         }
     }
 </script>
