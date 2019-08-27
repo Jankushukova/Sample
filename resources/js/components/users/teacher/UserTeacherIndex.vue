@@ -5,11 +5,6 @@
                          class="btn btn-outline-secondary btn-rounded btn-icon">
                 <i class="mdi mdi-arrow-left"></i>
             </router-link>
-
-            <router-link tag="button" :to="{name: 'createUser'}" type="button"
-                         class="btn btn-outline-secondary btn-rounded btn-icon">
-                <i class="mdi mdi-plus"></i>
-            </router-link>
         </div>
 
         <div class="table-responsive">

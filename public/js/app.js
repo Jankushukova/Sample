@@ -3720,11 +3720,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3767,11 +3762,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
 //
 //
 //
@@ -43356,15 +43346,6 @@ var render = function() {
             attrs: { tag: "button", to: { name: "indexUser" }, type: "button" }
           },
           [_c("i", { staticClass: "mdi mdi-arrow-left" })]
-        ),
-        _vm._v(" "),
-        _c(
-          "router-link",
-          {
-            staticClass: "btn btn-outline-secondary btn-rounded btn-icon",
-            attrs: { tag: "button", to: { name: "createUser" }, type: "button" }
-          },
-          [_c("i", { staticClass: "mdi mdi-plus" })]
         )
       ],
       1
@@ -43507,15 +43488,6 @@ var render = function() {
             attrs: { tag: "button", to: { name: "indexUser" }, type: "button" }
           },
           [_c("i", { staticClass: "mdi mdi-arrow-left" })]
-        ),
-        _vm._v(" "),
-        _c(
-          "router-link",
-          {
-            staticClass: "btn btn-outline-secondary btn-rounded btn-icon",
-            attrs: { tag: "button", to: { name: "createUser" }, type: "button" }
-          },
-          [_c("i", { staticClass: "mdi mdi-plus" })]
         )
       ],
       1
