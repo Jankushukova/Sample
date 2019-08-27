@@ -5,20 +5,20 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">{{user.first_name + ' ' + user.last_name}}
-                        accesses</h5>
+                        доступы</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <form>
-                        <input v-model="searchStr" class="form-control" type="search" placeholder="Search"
+                        <input v-model="searchStr" class="form-control" type="search" placeholder="Поиск"
                                aria-label="Search">
                     </form>
                     <table class="table">
                         <thead class="thead-light">
-                        <th>Name</th>
-                        <th>Activity</th>
+                        <th>Курсы не открытые в доступах</th>
+                        <th>Действия</th>
                         </thead>
                         <tbody>
                         <tr v-for="(course, index) in filteredList">
@@ -30,8 +30,8 @@
                         </tr>
                         </tbody>
                     </table>
-                    <div class="my-1 p-3 bg-white rounded shadow-sm">
-
+                    <div class="my-1 p-3 bg-white rounded shadow-sm border-top border-dark">
+                        <h3>Открытые доступы</h3>
 
                         <div class="media text-muted pt-3" v-for="(course, index) in courses">
                             <div class="media-body p-2 small lh-125 border ">
@@ -55,8 +55,8 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" @click="closeModal()">Close</button>
-                    <button type="button" class="btn btn-primary" v-on:click="saveAll()">Save changes</button>
+                    <button type="button" class="btn btn-secondary" @click="closeModal()">Закрыть</button>
+                    <button type="button" class="btn btn-primary" v-on:click="saveAll()">Сохранить изменения</button>
                 </div>
             </div>
         </div>
