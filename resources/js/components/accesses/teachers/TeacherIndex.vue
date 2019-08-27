@@ -46,16 +46,17 @@
                 </tbody>
             </table>
         </div>
-        <access-modal></access-modal>
+        <teacher-access-modal></teacher-access-modal>
     </div>
 </template>
 
 <script>
 
     import AccessModal from "./AccessModal";
+    import TeacherAccessModal from "./TeacherAccessModal";
 
     export default {
-        components: {AccessModal},
+        components: {TeacherAccessModal, AccessModal},
         data: function () {
             return {
                 users: [],
@@ -73,7 +74,7 @@
                 });
         },
         methods: {
-            openModal: function(user) {
+            openModal: function (user) {
                 this.$emit('sendUser', user);
             }
         }
