@@ -1793,10 +1793,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/accesses/students/StudentIndex.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/accesses/students/StudentIndex.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/accesses/students/StudentAccessModal.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/accesses/students/StudentAccessModal.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1817,9 +1817,130 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  name: "StudentAccessModal",
   data: function data() {
-    return {};
+    return {
+      course: {}
+    };
+  },
+  created: function created() {
+    this.$parent.$on('sendCourse', this.showModal);
+  },
+  methods: {
+    showModal: function showModal(course) {
+      this.course = course;
+      var app = this;
+      $('#accessModal').modal('show');
+    },
+    closeModal: function closeModal() {
+      this.course = {};
+      $('#accessModal').modal('hide');
+    },
+    saveAll: function saveAll() {
+      toastr.info('SAVED');
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/accesses/students/StudentIndex.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/accesses/students/StudentIndex.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _StudentAccessModal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./StudentAccessModal */ "./resources/js/components/accesses/students/StudentAccessModal.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    StudentAccessModal: _StudentAccessModal__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {
+      courses: []
+    };
+  },
+  mounted: function mounted() {
+    var app = this;
+    axios.get('/api/v1/courses').then(function (resp) {
+      app.courses = resp.data;
+    })["catch"](function (resp) {
+      console.log(resp);
+      bootbox.alert("Could not load courses");
+    });
+  },
+  methods: {
+    openModal: function openModal(course) {
+      this.$emit('sendCourse', course);
+    }
   }
 });
 
@@ -1980,8 +2101,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AccessModal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AccessModal */ "./resources/js/components/accesses/teachers/AccessModal.vue");
-/* harmony import */ var _TeacherAccessModal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TeacherAccessModal */ "./resources/js/components/accesses/teachers/TeacherAccessModal.vue");
+/* harmony import */ var _TeacherAccessModal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TeacherAccessModal */ "./resources/js/components/accesses/teachers/TeacherAccessModal.vue");
 //
 //
 //
@@ -2034,12 +2154,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    TeacherAccessModal: _TeacherAccessModal__WEBPACK_IMPORTED_MODULE_1__["default"],
-    AccessModal: _AccessModal__WEBPACK_IMPORTED_MODULE_0__["default"]
+    TeacherAccessModal: _TeacherAccessModal__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {
@@ -40281,6 +40399,116 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/accesses/students/StudentAccessModal.vue?vue&type=template&id=9266409a&scoped=true&":
+/*!***************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/accesses/students/StudentAccessModal.vue?vue&type=template&id=9266409a&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "modal fade bd-example-modal-xl",
+      attrs: {
+        id: "accessModal",
+        "data-backdrop": "static",
+        "data-keyboard": "false"
+      }
+    },
+    [
+      _c(
+        "div",
+        { staticClass: "modal-dialog modal-xl", attrs: { role: "document" } },
+        [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("div", { staticClass: "modal-header" }, [
+              _c(
+                "h5",
+                {
+                  staticClass: "modal-title",
+                  attrs: { id: "exampleModalLabel" }
+                },
+                [
+                  _vm._v(
+                    _vm._s(_vm.course.title) + "\n                    доступы"
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _vm._m(0)
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-secondary",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.closeModal()
+                    }
+                  }
+                },
+                [_vm._v("Закрыть")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.saveAll()
+                    }
+                  }
+                },
+                [_vm._v("Сохранить изменения")]
+              )
+            ])
+          ])
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/accesses/students/StudentIndex.vue?vue&type=template&id=753c15dc&":
 /*!*********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/accesses/students/StudentIndex.vue?vue&type=template&id=753c15dc& ***!
@@ -40296,31 +40524,120 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card-body " }, [
-    _c(
-      "div",
-      { staticClass: "card-description row" },
-      [
-        _c(
-          "router-link",
-          {
-            staticClass: "btn btn-outline-secondary btn-rounded btn-icon",
-            attrs: {
-              tag: "button",
-              to: { name: "indexAccess" },
-              type: "button"
-            }
-          },
-          [_c("i", { staticClass: "mdi mdi-arrow-left" })]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "col" }, [_vm._v("Create student access")])
-      ],
-      1
-    )
-  ])
+  return _c(
+    "div",
+    { staticClass: "card-body " },
+    [
+      _c(
+        "div",
+        { staticClass: "card-description row" },
+        [
+          _c(
+            "router-link",
+            {
+              staticClass: "btn btn-outline-secondary btn-rounded btn-icon",
+              attrs: {
+                tag: "button",
+                to: { name: "indexAccess" },
+                type: "button"
+              }
+            },
+            [_c("i", { staticClass: "mdi mdi-arrow-left" })]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "col" }, [_vm._v("Create student access")])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "table-responsive" }, [
+        _c("table", { staticClass: "table table-striped" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            _vm._l(_vm.courses, function(course, index) {
+              return _c("tr", [
+                _vm._m(1, true),
+                _vm._v(" "),
+                _c("td", [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(course.title) +
+                      "\n                "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  course.ready
+                    ? _c("span", { staticClass: "text-success" }, [
+                        _c("i", { staticClass: "fa fa-thumbs-up fa-lg" }),
+                        _vm._v(" готов\n                    ")
+                      ])
+                    : _c("span", { staticClass: "text-danger" }, [
+                        _c("i", { staticClass: "mdi mdi-alert" }),
+                        _vm._v(
+                          "\n                        Еще не готов\n                    "
+                        )
+                      ])
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-outline-dark ",
+                      on: {
+                        click: function($event) {
+                          return _vm.openModal(course)
+                        }
+                      }
+                    },
+                    [_c("i", { staticClass: "fal fa-lock fa-2x" })]
+                  )
+                ])
+              ])
+            }),
+            0
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("student-access-modal")
+    ],
+    1
+  )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Course")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Title")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Ready")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Accesses")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { staticClass: "py-1" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-rounded btn-icon bg-bitlab text-light" },
+        [_c("i", { staticClass: "fal fa-book-open" })]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -59072,6 +59389,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/accesses/students/StudentAccessModal.vue":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/accesses/students/StudentAccessModal.vue ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _StudentAccessModal_vue_vue_type_template_id_9266409a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./StudentAccessModal.vue?vue&type=template&id=9266409a&scoped=true& */ "./resources/js/components/accesses/students/StudentAccessModal.vue?vue&type=template&id=9266409a&scoped=true&");
+/* harmony import */ var _StudentAccessModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StudentAccessModal.vue?vue&type=script&lang=js& */ "./resources/js/components/accesses/students/StudentAccessModal.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _StudentAccessModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _StudentAccessModal_vue_vue_type_template_id_9266409a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _StudentAccessModal_vue_vue_type_template_id_9266409a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "9266409a",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/accesses/students/StudentAccessModal.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/accesses/students/StudentAccessModal.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************!*\
+  !*** ./resources/js/components/accesses/students/StudentAccessModal.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_StudentAccessModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./StudentAccessModal.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/accesses/students/StudentAccessModal.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_StudentAccessModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/accesses/students/StudentAccessModal.vue?vue&type=template&id=9266409a&scoped=true&":
+/*!*********************************************************************************************************************!*\
+  !*** ./resources/js/components/accesses/students/StudentAccessModal.vue?vue&type=template&id=9266409a&scoped=true& ***!
+  \*********************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StudentAccessModal_vue_vue_type_template_id_9266409a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./StudentAccessModal.vue?vue&type=template&id=9266409a&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/accesses/students/StudentAccessModal.vue?vue&type=template&id=9266409a&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StudentAccessModal_vue_vue_type_template_id_9266409a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StudentAccessModal_vue_vue_type_template_id_9266409a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/accesses/students/StudentIndex.vue":
 /*!********************************************************************!*\
   !*** ./resources/js/components/accesses/students/StudentIndex.vue ***!
@@ -59138,17 +59524,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StudentIndex_vue_vue_type_template_id_753c15dc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
-
-/***/ }),
-
-/***/ "./resources/js/components/accesses/teachers/AccessModal.vue":
-/*!*******************************************************************!*\
-  !*** ./resources/js/components/accesses/teachers/AccessModal.vue ***!
-  \*******************************************************************/
-/*! exports provided: default */
-/***/ (function(module, exports) {
-
-throw new Error("Module build failed (from ./node_modules/vue-loader/lib/index.js):\nError: ENOENT: no such file or directory, open '/Users/air/Desktop/laravel/intranet_bitlab/resources/js/components/accesses/teachers/AccessModal.vue'");
 
 /***/ }),
 

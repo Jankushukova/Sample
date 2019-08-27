@@ -55,7 +55,6 @@ import GroupTeacherCreate from "./components/groups/teacher/GroupTeacherCreate";
 import UserEdit from "./components/users/UserEdit";
 
 
-
 const router = new VueRouter({
     routes: [
 
@@ -87,7 +86,7 @@ const router = new VueRouter({
                     path: '/admin/courses/lesson/create:course_id',
                     component: LessonsCreate,
                     name: 'createLesson'
-                },{
+                }, {
                     path: '/admin/courses/lesson/edit:lesson_id',
                     component: LessonsEdit,
                     name: 'editLesson'
@@ -201,14 +200,14 @@ const router = new VueRouter({
                 },
             ],
         },
-        {path: '/',component: ExampleComponent, name:"index",
-            children: [
-            ]
+        {
+            path: '/', component: ExampleComponent, name: "index",
+            children: []
         },
     ]
 });
 
-const main = new Vue({ router }).$mount('#app');
+const main = new Vue({router}).$mount('#app');
 
 
 

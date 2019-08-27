@@ -16,6 +16,8 @@
 
     <!-- plugin css for this page -->
     <link rel="stylesheet" href="{{asset('fontawesome/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{asset('front/toastr/toastr.css')}}">
+
     <link rel="stylesheet" href="{{asset('front/vendors/datatables.net-bs4/dataTables.bootstrap4.css')}}">
     <!-- End plugin css for this page -->
     @yield('styles')
@@ -50,6 +52,8 @@
 <script src="{{asset('front/js/data-table.js')}}"></script>
 <script src="{{asset('front/js/jquery.dataTables.js')}}"></script>
 <script src="{{asset('front/js/dataTables.bootstrap4.js')}}"></script>
+
+<script src="{{asset('front/toastr/toastr.js')}}"></script>
 
 <!-- End custom js for this page-->
 @yield('scripts')

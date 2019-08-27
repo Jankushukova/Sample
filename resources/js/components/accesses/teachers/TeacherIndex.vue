@@ -52,11 +52,10 @@
 
 <script>
 
-    import AccessModal from "./AccessModal";
     import TeacherAccessModal from "./TeacherAccessModal";
 
     export default {
-        components: {TeacherAccessModal, AccessModal},
+        components: {TeacherAccessModal},
         data: function () {
             return {
                 users: [],
