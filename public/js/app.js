@@ -1883,12 +1883,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AccessModal",
   data: function data() {
     return {
       user: {},
       courses: [],
+      otherCourses: [],
       searchStr: ''
     };
   },
@@ -1897,10 +1914,11 @@ __webpack_require__.r(__webpack_exports__);
     showModal: function showModal(user) {
       this.user = user;
       var app = this;
-      axios.get('/api/v1/teacher/access/courses/' + this.user.id).then(function (coursesResp) {
+      axios.all([axios.get('/api/v1/teacher/access/courses/' + this.user.id), axios.get('/api/v1/teacher/access/except/courses/' + this.user.id)]).then(axios.spread(function (coursesResp, otherCoursesResp) {
         app.courses = coursesResp.data;
+        app.otherCourses = otherCoursesResp.data;
         $('#accessModal').modal('show');
-      });
+      }));
     },
     closeModal: function closeModal() {
       this.user = {};
@@ -1910,12 +1928,44 @@ __webpack_require__.r(__webpack_exports__);
     },
     removeCourse: function removeCourse(course) {
       this.courses = this.courses.filter(function (e) {
-        return e.id != course.id;
+        return e.id !== course.id;
+      });
+      this.otherCourses.push(course);
+    },
+    addCourse: function addCourse(course) {
+      this.courses.push(course);
+      this.otherCourses = this.otherCourses.filter(function (e) {
+        return e.id !== course.id;
+      });
+    },
+    saveAll: function saveAll() {
+      var _this = this;
+
+      axios.post('/api/v1/teacher/access/courses/save', null, {
+        params: {
+          user_id: this.user.id,
+          course_ids: this.courses.length ? this.courses.map(function (e) {
+            return e.id;
+          }) : []
+        }
+      }).then(function (e) {
+        _this.closeModal();
+      })["catch"](function (err) {
+        bootbox.alert("Could not save");
       });
     }
   },
   created: function created() {
     this.$parent.$on('sendUser', this.showModal);
+  },
+  computed: {
+    filteredList: function filteredList() {
+      var _this2 = this;
+
+      return this.otherCourses.filter(function (e) {
+        return e.title.toLowerCase().includes(_this2.searchStr.toLowerCase()) || !_this2.searchStr.trim();
+      });
+    }
   }
 });
 
@@ -40472,6 +40522,43 @@ var render = function() {
                 })
               ]),
               _vm._v(" "),
+              _c("table", { staticClass: "table" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.filteredList, function(course, index) {
+                    return _c("tr", [
+                      _c("td", [
+                        _c("p", {
+                          domProps: { textContent: _vm._s(course.title) }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text-right" }, [
+                        _c(
+                          "a",
+                          {
+                            on: {
+                              click: function($event) {
+                                return _vm.addCourse(course)
+                              }
+                            }
+                          },
+                          [
+                            _c("i", {
+                              staticClass:
+                                "text-success mr-2 fa fa-plus-circle fa-2x"
+                            })
+                          ]
+                        )
+                      ])
+                    ])
+                  }),
+                  0
+                )
+              ]),
+              _vm._v(" "),
               _c(
                 "div",
                 { staticClass: "my-1 p-3 bg-white rounded shadow-sm" },
@@ -40480,10 +40567,7 @@ var render = function() {
                     return _c("div", { staticClass: "media text-muted pt-3" }, [
                       _c(
                         "div",
-                        {
-                          staticClass:
-                            "media-body pb-3 mb-0 small lh-125 border-bottom border-gray"
-                        },
+                        { staticClass: "media-body p-2 small lh-125 border " },
                         [
                           _c(
                             "div",
@@ -40506,7 +40590,12 @@ var render = function() {
                                     }
                                   }
                                 },
-                                [_vm._v("Убрать")]
+                                [
+                                  _c("i", {
+                                    staticClass:
+                                      "fa fa-minus-circle text-danger fa-2x"
+                                  })
+                                ]
                               )
                             ]
                           )
@@ -40517,7 +40606,7 @@ var render = function() {
                   _vm._v(" "),
                   _vm.courses.length == 0
                     ? _c("div", { staticClass: "media text-muted pt-3" }, [
-                        _vm._m(1)
+                        _vm._m(2)
                       ])
                     : _vm._e()
                 ],
@@ -40542,7 +40631,15 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "button",
-                { staticClass: "btn btn-primary", attrs: { type: "button" } },
+                {
+                  staticClass: "btn btn-primary",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.saveAll()
+                    }
+                  }
+                },
                 [_vm._v("Save changes")]
               )
             ])
@@ -40574,6 +40671,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-light" }, [
+      _c("th", [_vm._v("Name")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Activity")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c(
       "div",
       {
@@ -40581,18 +40688,12 @@ var staticRenderFns = [
           "media-body pb-3 mb-0 small lh-125 border-bottom border-gray"
       },
       [
-        _c(
-          "div",
-          {
-            staticClass:
-              "d-flex justify-content-between align-items-center w-100"
-          },
-          [
-            _c("strong", { staticClass: "text-danger text-center" }, [
-              _vm._v("Нет данных")
-            ])
-          ]
-        )
+        _c("div", { staticClass: "w-100" }, [
+          _c("p", { staticClass: "text-center text-danger" }, [
+            _vm._v("Нет данных "),
+            _c("i", { staticClass: "fa fa-question" })
+          ])
+        ])
       ]
     )
   }

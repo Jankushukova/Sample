@@ -15,21 +15,37 @@
                         <input v-model="searchStr" class="form-control" type="search" placeholder="Search"
                                aria-label="Search">
                     </form>
+                    <table class="table">
+                        <thead class="thead-light">
+                        <th>Name</th>
+                        <th>Activity</th>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(course, index) in filteredList">
+                            <td>
+                                <p v-text="course.title"></p>
+                            </td>
+                            <td class="text-right"><a v-on:click="addCourse(course)"><i
+                                    class="text-success mr-2 fa fa-plus-circle fa-2x"></i></a></td>
+                        </tr>
+                        </tbody>
+                    </table>
                     <div class="my-1 p-3 bg-white rounded shadow-sm">
 
 
                         <div class="media text-muted pt-3" v-for="(course, index) in courses">
-                            <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                            <div class="media-body p-2 small lh-125 border ">
                                 <div class="d-flex justify-content-between align-items-center w-100">
                                     <strong class="text-gray-dark" v-text="course.title"></strong>
-                                    <a v-on:click="removeCourse(course)">Убрать</a>
+                                    <a v-on:click="removeCourse(course)"> <i
+                                            class="fa fa-minus-circle text-danger fa-2x"></i> </a>
                                 </div>
                             </div>
                         </div>
-                        <div  v-if="courses.length == 0" class="media text-muted pt-3">
+                        <div v-if="courses.length == 0" class="media text-muted pt-3">
                             <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                                <div class="d-flex justify-content-between align-items-center w-100">
-                                    <strong class="text-danger text-center">Нет данных</strong>
+                                <div class="w-100">
+                                    <p class="text-center text-danger">Нет данных <i class="fa fa-question"></i></p>
                                 </div>
                             </div>
                         </div>
@@ -40,7 +56,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" @click="closeModal()">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary" v-on:click="saveAll()">Save changes</button>
                 </div>
             </div>
         </div>
@@ -54,6 +70,7 @@
             return {
                 user: {},
                 courses: [],
+                otherCourses: [],
                 searchStr: ''
             }
         },
@@ -64,11 +81,16 @@
                 this.user = user;
                 let app = this;
 
-                axios.get('/api/v1/teacher/access/courses/' + this.user.id)
-                    .then(function (coursesResp) {
+                axios.all([
+                    axios.get('/api/v1/teacher/access/courses/' + this.user.id),
+                    axios.get('/api/v1/teacher/access/except/courses/' + this.user.id)
+                ])
+                    .then(axios.spread(function (coursesResp, otherCoursesResp) {
+
                         app.courses = coursesResp.data;
+                        app.otherCourses = otherCoursesResp.data;
                         $('#accessModal').modal('show');
-                    });
+                    }));
 
             },
             closeModal() {
@@ -78,11 +100,37 @@
                 $('#accessModal').modal('hide');
             },
             removeCourse(course) {
-                this.courses = this.courses.filter(e => e.id != course.id);
+                this.courses = this.courses.filter(e => e.id !== course.id);
+                this.otherCourses.push(course);
+            },
+
+            addCourse(course) {
+                this.courses.push(course);
+                this.otherCourses = this.otherCourses.filter(e => e.id !== course.id);
+            },
+
+            saveAll() {
+                axios.post('/api/v1/teacher/access/courses/save', null, {
+                    params: {
+                        user_id: this.user.id,
+                        course_ids: this.courses.length ? this.courses.map(e => e.id) : []
+                    }
+                }).then(e => {
+                    this.closeModal();
+                }).catch(err => {
+                    bootbox.alert("Could not save");
+                });
             }
+
         },
         created: function () {
             this.$parent.$on('sendUser', this.showModal);
+        },
+        computed: {
+
+            filteredList() {
+                return this.otherCourses.filter(e => e.title.toLowerCase().includes(this.searchStr.toLowerCase()) || !this.searchStr.trim())
+            }
         }
     }
 </script>

@@ -79,8 +79,9 @@ Route::group([
         Route::put('groupsStudents/{id}', ['uses' => 'GroupsStudentsController@update', 'as' => 'groupsStudents.update.put'])->where('id', '[0-9]+');
         Route::patch('groupsStudents/{id}', ['uses' => 'GroupsStudentsController@update', 'as' => 'groupsStudents.update.patch'])->where('id', '[0-9]+');
 
-        Route::get('teacher/access/courses/{user_id}', ['uses' => 'TeacherAccessController@getMyAvailableCourses', 'as' => 'teacher.access.index']);
+        Route::post('teacher/access/courses/save', ['uses' => 'TeacherAccessController@saveAll', 'as' => 'teacher.access.store']);
         Route::get('teacher/access/except/courses/{user_id}', ['uses' => 'TeacherAccessController@getMyNotAvailableCourses', 'as' => 'teacher.access.index']);
+        Route::get('teacher/access/courses/{user_id}', ['uses' => 'TeacherAccessController@getMyAvailableCourses', 'as' => 'teacher.access.index']);
 
     });
 
