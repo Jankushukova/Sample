@@ -8,16 +8,42 @@
 </p>
 
 ## Start using
+<div>
 open project, for example in phpstorm
-run
-    composer install
+</div>
+<div>
+run 'composer install'
+</div>
+<div>
 in the Sample-master folder create .env file and copy here everything from .envexample
+</div>
+<div>
 in the .env file identify database and user name
-run
-    php artisan key:generate
-    php artisan migrate:refresh
-    php artisan db:seed
-    php artisan serve
+</div>
+<div>
+    run <div>'php artisan key:generate'</div>
+    <div>'php artisan migrate:refresh'</div>
+    <div>'php artisan db:seed'</div>
+    <div>' php artisan serve'</div>
+</div>
+<div>
 manager password:12345
+</div>
+<div>
 manager login:manager!@mail.kz
  
+</div>
+
+
+
+
+    
+
+
+
+    
+    
+    
+   
+
+
