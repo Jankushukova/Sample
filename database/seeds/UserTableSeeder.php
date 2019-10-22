@@ -15,13 +15,22 @@ class UserTableSeeder extends Seeder
         $admin = new User();
         $admin->fill([
             'password' => '11223344',
-            'first_name' => 'Admin',
-            'last_name' => 'Adminov',
-            'phone_number' => '8-777-777-77-77',
+
+            'name' => 'admin',
             'email' => 'admin@mail.kz',
             'role_id' => 1
         ]);
         $admin->password = bcrypt($admin->password);
         $admin->save();
+
+        $manager = new User();
+        $manager->fill([
+            'password' => '12345',
+            'name' => 'manager1',
+            'email' => 'manager1@mail.kz',
+            'role_id' => 2
+        ]);
+        $manager->password=bcrypt($manager->password);
+        $manager->save();
     }
 }

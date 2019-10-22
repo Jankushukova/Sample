@@ -22,15 +22,6 @@ class UsersController extends Controller
     }
 
 
-    public function getTeachers()
-    {
-        return User::where('role_id', Role::TEACHER_ID)->get();
-    }
-
-    public function getStudents()
-    {
-        return User::where('role_id', Role::STUDENT_ID)->get();
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -42,9 +33,9 @@ class UsersController extends Controller
         //
     }
 
-    public function specific($id)
+    public function getCurrent()
     {
-        return User::find($id);
+        return Auth::user();
     }
 
     /**
@@ -55,8 +46,9 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-
         $user = User::create($request->all());
+        $user->role_id = Role::CLIENT_ID;
+
         $user->password = bcrypt($user->password);;
         $user->save();
         return $user;

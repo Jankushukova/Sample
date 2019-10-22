@@ -4,9 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Time extends Model
+class Message extends Model
 {
     protected $fillable = [
-        'value'
+        'theme',
+        'answer',
+        'message',
+        'client_id',
     ];
 }

@@ -8,8 +8,8 @@ class Role extends Model
 {
 
     const ADMIN_ID = 1;
-    const TEACHER_ID = 2;
-    const STUDENT_ID = 3;
+    const MANAGER_ID = 2;
+    const CLIENT_ID = 3;
 
     protected $fillable = [
         'name'

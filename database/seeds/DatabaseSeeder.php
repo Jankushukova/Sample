@@ -11,10 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         $this->call(MaterialTypeTableSeeder::class);
          $this->call(RoleTableSeeder::class);
          $this->call(UserTableSeeder::class);
-         $this->call(TimeSeeder::class);
-         $this->call(WeekDaySeeder::class);
     }
 }

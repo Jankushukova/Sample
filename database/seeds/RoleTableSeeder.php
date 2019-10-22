@@ -17,11 +17,11 @@ class RoleTableSeeder extends Seeder
         $admin->save();
 
         $teacher = new Role();
-        $teacher->name = 'Учитель';
+        $teacher->name = 'Менеджер';
         $teacher->save();
 
         $student = new Role();
-        $student->name = 'Студент';
+        $student->name = 'Клиент';
         $student->save();
     }
 }

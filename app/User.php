@@ -17,11 +17,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name',
-        'last_name',
-        'phone_number',
-        'role_id',
+        'name',
         'email',
+        'role_id'=>Role::CLIENT_ID,
         'password',
     ];
 
